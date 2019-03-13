@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
+import './assets/styles.scss'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
