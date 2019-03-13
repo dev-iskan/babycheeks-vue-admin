@@ -1,13 +1,14 @@
 <template>
-  <HelloWorld />
+  <v-container>
+    <v-layout>
+      <v-flex xs12>
+        <p>Hello</p>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
 
-export default {
-  components: {
-    HelloWorld,
-  },
-};
+export default {}
 </script>
