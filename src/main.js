@@ -14,10 +14,11 @@ Vue.config.productionTip = false
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_ROOT_API)
-
+ApiService.mount401Interceptor()
 // If token exists set header
 if (TokenService.getToken()) {
   ApiService.setHeader()
+  store.dispatch('auth/fetchUser')
 }
 
 new Vue({

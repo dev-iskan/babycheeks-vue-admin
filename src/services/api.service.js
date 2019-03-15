@@ -1,9 +1,13 @@
 import axios from 'axios'
 import { TokenService } from './storage.service'
-// import store from '@/store'
+import router from '@/router'
+
 const ApiService = {
+  _401interceptor: null,
+
   init (baseURL) {
     axios.defaults.baseURL = baseURL
+    axios.defaults.headers.common['Accept'] = `application/json`
   },
 
   setHeader () {
@@ -11,7 +15,7 @@ const ApiService = {
   },
 
   removeHeader () {
-    axios.defaults.headers.common = {}
+    axios.defaults.headers.common['Authorization'] = ''
   },
 
   get (resource) {
@@ -43,6 +47,23 @@ const ApiService = {
     **/
   customRequest (data) {
     return axios(data)
+  },
+  mount401Interceptor () {
+    this._401interceptor = axios.interceptors.response.use(response => response, async (error) => {
+      if (error.request.status === 401) {
+        // Refresh token has failed. Logout the user
+        router.push({ name: 'logout' })
+      }
+
+      // If error was not 401 just reject as is
+      throw error
+    }
+    )
+  },
+
+  unmount401Interceptor () {
+    // Eject the interceptor
+    axios.interceptors.response.eject(this._401interceptor)
   }
 }
 

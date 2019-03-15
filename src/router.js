@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 import { TokenService } from '@/services/storage.service'
 const Main = () => import('@/views/Main.vue')
 const Home = () => import('@/views/Home.vue')
-const SignIn = () => import('@/views/Auth/SignIn.vue')
+const LogIn = () => import('@/views/Auth/LogIn.vue')
 
 Vue.use(Router)
 
@@ -12,12 +13,23 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/signin',
-      component: SignIn,
-      name: 'signin',
+      path: '/login',
+      component: LogIn,
+      name: 'login',
       meta: {
         public: true, // Allow access to even if not logged in
         onlyWhenLoggedOut: true
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      beforeEnter (to, from, next) {
+        store.dispatch('auth/logout').then(() =>
+          next({
+            name: 'login'
+          })
+        )
       }
     },
     {
@@ -41,8 +53,8 @@ router.beforeEach((to, from, next) => {
 
   if (!isPublic && !loggedIn) {
     return next({
-      name: 'signin',
-      query: { redirect: to.fullPath } // Store the full path to redirect the user to after login
+      name: 'login',
+      query: { redirectTo: to.fullPath } // Store the full path to redirect the user to after login
     })
   }
 
