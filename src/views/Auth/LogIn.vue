@@ -63,6 +63,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -79,10 +80,29 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', [
+      'login'
+    ]),
+
     submit () {
       if (this.$refs.form.validate()) {
-        // this.buttonLoading = true
+        this.buttonLoading = true
+        this.login({
+          email: this.form.email,
+          password: this.form.password
+        })
+          .then((result) => {
+            this.successRedirect()
+          }).catch((err) => {
+            console.log(err)
+          })
+          .finally(() => { this.buttonLoading = false })
       }
+    },
+
+    successRedirect () {
+      const redirectTo = this.$route.query.redirectTo || { name: 'home' }
+      this.$router.push(redirectTo)
     }
   }
 }

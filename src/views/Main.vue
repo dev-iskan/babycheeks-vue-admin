@@ -38,9 +38,22 @@
         <span>Babycheeks</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn icon>
-        <v-icon>lock_open</v-icon>
-      </v-btn>
+      <v-toolbar-items>
+        <v-btn
+          flat
+          :icon="$vuetify.breakpoint.mdAndDown"
+          :to="{name: 'logout'}"
+        >
+          <template v-if="$vuetify.breakpoint.mdAndDown">
+            <v-icon>
+              exit_to_app
+            </v-icon>
+          </template>
+          <template v-else>
+            Logout
+          </template>
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content>
