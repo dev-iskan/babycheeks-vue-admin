@@ -1,10 +1,10 @@
 import { UserService } from '../services/user.service'
 import { TokenService } from '../services/storage.service'
 
-const state = {
+const state = () => ({
   accessToken: TokenService.getToken(),
   user: {}
-}
+})
 
 const getters = {
   loggedIn: (state) => !!state.accessToken,
@@ -16,8 +16,8 @@ const actions = {
   login: async ({ commit }, { email, password }) => {
     try {
       const data = await UserService.login(email, password)
-      commit('loginSuccess', data.meta.access_token)
-      commit('setUser', data.data)
+      commit('LOGIN_SUCCESS', data.meta.access_token)
+      commit('SET_USER', data.data)
       return true
     } catch (error) {
       throw error
@@ -27,7 +27,7 @@ const actions = {
   logout: async ({ commit }) => {
     try {
       UserService.logout()
-      commit('logoutSuccess')
+      commit('LOGOUT_SUCCESS')
 
       return true
     } catch (error) {
@@ -38,7 +38,7 @@ const actions = {
   fetchUser: async ({ commit }) => {
     try {
       const user = await UserService.me()
-      commit('setUser', user)
+      commit('SET_USER', user)
 
       return true
     } catch (error) {
@@ -48,15 +48,15 @@ const actions = {
 }
 
 const mutations = {
-  loginSuccess: (state, accessToken) => {
+  LOGIN_SUCCESS: (state, accessToken) => {
     state.accessToken = accessToken
   },
 
-  setUser: (state, user) => {
+  SET_USER: (state, user) => {
     state.user = user
   },
 
-  logoutSuccess: state => {
+  LOGOUT_SUCCESS: state => {
     state.accessToken = ''
     state.user = {}
   }

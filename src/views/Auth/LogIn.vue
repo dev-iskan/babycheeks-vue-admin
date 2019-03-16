@@ -27,7 +27,9 @@
                 </v-card-title>
                 <v-card-text>
                   <v-text-field
+                    ref="email"
                     v-model="form.email"
+                    :error-messages="errors.email"
                     label="E-mail"
                     validate-on-blur
                     type="text"

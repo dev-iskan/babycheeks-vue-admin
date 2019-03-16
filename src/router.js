@@ -47,6 +47,10 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  // clear validation errors
+  store.dispatch('validation/clearErrors')
+
+  // check if auth
   const isPublic = to.matched.some(record => record.meta.public)
   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
   const loggedIn = !!TokenService.getToken()

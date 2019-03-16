@@ -9,12 +9,13 @@ import store from './store'
 import './registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import validationMixin from './plugins/mixins/validation'
 
 Vue.config.productionTip = false
-
+Vue.mixin(validationMixin)
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_ROOT_API)
-ApiService.mount401Interceptor()
+ApiService.mountInterceptor()
 // If token exists set header
 if (TokenService.getToken()) {
   ApiService.setHeader()

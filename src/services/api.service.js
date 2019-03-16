@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { TokenService } from './storage.service'
 import router from '@/router'
+import store from '@/store'
 
 const ApiService = {
-  _401interceptor: null,
+  _interceptor: null,
 
   init (baseURL) {
     axios.defaults.baseURL = baseURL
@@ -48,22 +49,32 @@ const ApiService = {
   customRequest (data) {
     return axios(data)
   },
-  mount401Interceptor () {
-    this._401interceptor = axios.interceptors.response.use(response => response, async (error) => {
-      if (error.request.status === 401) {
+
+  mountInterceptor () {
+    this._interceptor = axios.interceptors.response.use(response => response, async (error) => {
+      if (error.request && error.request.status === 401) {
         // Refresh token has failed. Logout the user
         router.push({ name: 'logout' })
       }
 
+      if (error.request && error.request.status === 422) {
+        store.dispatch('validation/setErrors', error.response.data.errors)
+      }
+
       // If error was not 401 just reject as is
       throw error
-    }
-    )
+    })
+
+    this._request = axios.interceptors.request.use(config => {
+      // clear validation errors
+      store.dispatch('validation/clearErrors')
+      return config
+    })
   },
 
-  unmount401Interceptor () {
+  unmountInterceptor () {
     // Eject the interceptor
-    axios.interceptors.response.eject(this._401interceptor)
+    axios.interceptors.response.eject(this._interceptor)
   }
 }
 

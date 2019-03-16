@@ -41,6 +41,7 @@ const UserService = {
   logout: () => {
     TokenService.removeToken()
     ApiService.removeHeader()
+    ApiService.unmountInterceptor()
   }
 }
 
