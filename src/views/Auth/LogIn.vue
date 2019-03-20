@@ -1,6 +1,6 @@
 <template>
-  <v-app class="primary">
-    <v-content>
+  <v-app>
+    <v-content class="background">
       <v-container
         fill-height
       >
@@ -10,7 +10,7 @@
         >
           <v-flex
             xs12
-            sm6
+            sm4
           >
             <v-card
               class="rounded-card elevation-5"
@@ -20,10 +20,8 @@
                 v-model="valid"
                 @submit.prevent="submit"
               >
-                <v-card-title>
-                  <div>
-                    <span class="headline text-uppercase">Sign In</span>
-                  </div>
+                <v-card-title class="justify-center pt-4">
+                  <span class="headline text-uppercase">Sign In</span>
                 </v-card-title>
                 <v-card-text>
                   <v-text-field
@@ -31,6 +29,7 @@
                     v-model="form.email"
                     :error-messages="errors.email"
                     label="E-mail"
+                    prepend-icon="account_circle"
                     validate-on-blur
                     type="text"
                     :rules="[rules.required, rules.validEmail]"
@@ -39,6 +38,7 @@
                     v-model="form.password"
                     label="Password"
                     validate-on-blur
+                    prepend-icon="vpn_key"
                     type="password"
                     :rules="[rules.required]"
                   />
