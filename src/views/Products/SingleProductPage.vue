@@ -1,0 +1,22 @@
+<template>
+  <p>Hello Single product</p>
+</template>
+
+<script>
+export default {
+  props: {
+    slug: {
+      required: true,
+      type: String
+    }
+  },
+
+  created () {
+    console.log(this.slug)
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

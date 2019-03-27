@@ -99,6 +99,12 @@ export default {
           name: 'categories-list',
           icon: 'storage',
           title: 'Categories'
+        },
+
+        {
+          name: 'products-list',
+          icon: 'business_center',
+          title: 'Products'
         }
       ]
     }

@@ -72,6 +72,17 @@ const router = new Router({
           props: true,
           name: 'single-category',
           component: () => import('@/views/Categories/SingleCategoryPage.vue')
+        },
+        {
+          path: '/products',
+          name: 'products-list',
+          component: () => import('@/views/Products/ProductsTablePage.vue')
+        },
+        {
+          path: '/products/:slug',
+          props: true,
+          name: 'single-product',
+          component: () => import('@/views/Products/SingleProductPage.vue')
         }
       ]
     }
