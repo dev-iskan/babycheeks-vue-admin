@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import store from './store'
 import { TokenService } from '@/services/storage.service'
 const Main = () => import('@/views/Main.vue')
-const Home = () => import('@/views/Home.vue')
 const LogIn = () => import('@/views/Auth/LogIn.vue')
 
 Vue.use(Router)
@@ -39,7 +38,19 @@ const router = new Router({
         {
           path: '/',
           name: 'home',
-          component: Home
+          component: () => import('@/views/Home.vue')
+        },
+        {
+          path: '/ages',
+          name: 'ages-list',
+          component: () => import('@/views/Ages/AgesTablePage.vue')
+        },
+        {
+          path: '/ages/:id',
+          props: true,
+          name: 'ages-single',
+          component: () => import('@/views/Ages/SingleAgePage.vue')
+
         }
       ]
     }
