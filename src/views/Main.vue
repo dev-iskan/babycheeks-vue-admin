@@ -11,6 +11,7 @@
           v-for="item in menuItems"
           :key="item.name"
           :to="{name: item.name}"
+          exact
         >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -23,7 +24,7 @@
     </v-navigation-drawer>
 
     <v-toolbar
-      color="primary"
+      class="background"
       app
       dark
       flat
@@ -56,8 +57,17 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-content>
-      <router-view />
+    <v-content class="deep-purple lighten-5">
+      <v-container>
+        <v-layout>
+          <v-flex
+            xs12
+            d-flex
+          >
+            <router-view />
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
@@ -74,6 +84,11 @@ export default {
           name: 'home',
           icon: 'home',
           title: 'Home'
+        },
+        {
+          name: 'ages-list',
+          icon: 'child_friendly',
+          title: 'Ages'
         }
       ]
     }
