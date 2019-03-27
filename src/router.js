@@ -48,8 +48,20 @@ const router = new Router({
         {
           path: '/ages/:id',
           props: true,
-          name: 'ages-single',
+          name: 'single-age',
           component: () => import('@/views/Ages/SingleAgePage.vue')
+
+        },
+        {
+          path: '/brands',
+          name: 'brands-list',
+          component: () => import('@/views/Brands/BrandsTablePage.vue')
+        },
+        {
+          path: '/brands/:slug',
+          props: true,
+          name: 'single-brand',
+          component: () => import('@/views/Brands/SingleBrandPage.vue')
 
         }
       ]

@@ -89,6 +89,11 @@ export default {
           name: 'ages-list',
           icon: 'child_friendly',
           title: 'Ages'
+        },
+        {
+          name: 'brands-list',
+          icon: 'label',
+          title: 'Brands'
         }
       ]
     }
