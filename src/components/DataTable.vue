@@ -40,12 +40,16 @@
         :headers="headers"
         :items="records"
         :search="search"
+        :loading="loading"
         hide-actions
         class="elevation-1"
       >
         <!-- no-results-text="Такие данные не найдены" -->
         <template v-slot:items="props">
-          <tr>
+          <tr
+            class="pointer"
+            @click="showRecord(props.item)"
+          >
             <td
               v-for="header in headers"
               :key="header.value"
@@ -72,7 +76,10 @@ export default {
     return {
       search: '',
       headers: [],
-      records: []
+      records: [],
+      routeKey: '',
+      table: '',
+      loading: false
     }
   },
   created () {
@@ -80,9 +87,17 @@ export default {
   },
   methods: {
     async getRecords () {
+      this.loading = true
       const response = await api.get(`${this.endpoint}`)
       this.records = response.data.data
       this.headers = response.data.meta.displayableColumns
+      this.routeKey = response.data.meta.routeKey
+      this.table = response.data.meta.table
+      this.loading = false
+    },
+
+    showRecord (record) {
+      this.$router.push({ path: `/${this.table}/${record[this.routeKey]}` })
     }
   }
 }
