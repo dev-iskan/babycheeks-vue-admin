@@ -94,6 +94,11 @@ export default {
           name: 'brands-list',
           icon: 'label',
           title: 'Brands'
+        },
+        {
+          name: 'categories-list',
+          icon: 'storage',
+          title: 'Categories'
         }
       ]
     }

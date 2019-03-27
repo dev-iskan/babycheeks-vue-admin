@@ -1,8 +1,6 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <v-card-title>
-      <span class="headline text-uppercase">Brands Table</span>
-    </v-card-title>
+    <card-title title="Brands Table" />
     <v-divider />
     <v-card-text>
       <data-table endpoint="admin/brands" />
@@ -12,9 +10,11 @@
 
 <script>
 import DataTable from '@/components/DataTable'
+import CardTitle from '@/components/CardTitle'
 export default {
   components: {
-    DataTable
+    DataTable,
+    CardTitle
   }
 }
 </script>

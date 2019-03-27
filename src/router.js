@@ -50,7 +50,6 @@ const router = new Router({
           props: true,
           name: 'single-age',
           component: () => import('@/views/Ages/SingleAgePage.vue')
-
         },
         {
           path: '/brands',
@@ -62,7 +61,17 @@ const router = new Router({
           props: true,
           name: 'single-brand',
           component: () => import('@/views/Brands/SingleBrandPage.vue')
-
+        },
+        {
+          path: '/categories',
+          name: 'categories-list',
+          component: () => import('@/views/Categories/CategoriesTablePage.vue')
+        },
+        {
+          path: '/categories/:slug',
+          props: true,
+          name: 'single-category',
+          component: () => import('@/views/Categories/SingleCategoryPage.vue')
         }
       ]
     }

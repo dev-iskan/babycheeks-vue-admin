@@ -1,9 +1,9 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <card-title title="Ages Table" />
+    <card-title title="Categories Table" />
     <v-divider />
     <v-card-text>
-      <data-table endpoint="admin/ages" />
+      <data-table endpoint="admin/categories" />
     </v-card-text>
   </v-card>
 </template>
@@ -13,8 +13,8 @@ import DataTable from '@/components/DataTable'
 import CardTitle from '@/components/CardTitle'
 export default {
   components: {
-    DataTable,
-    CardTitle
+    CardTitle,
+    DataTable
   }
 }
 </script>
