@@ -69,13 +69,17 @@
         </v-layout>
       </v-container>
     </v-content>
+
+    <app-snackbar />
   </v-app>
 </template>
 
 <script>
-
+import AppSnackbar from '@/components/AppSnackbar'
 export default {
-
+  components: {
+    AppSnackbar
+  },
   data () {
     return {
       drawer: this.$vuetify.breakpoint.lgAndUp,

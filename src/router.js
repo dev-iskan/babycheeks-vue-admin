@@ -46,7 +46,7 @@ const router = new Router({
           component: () => import('@/views/Ages/AgesTablePage.vue')
         },
         {
-          path: '/ages/:routeKey',
+          path: '/ages/show/:routeKey',
           props: true,
           name: 'ages-single',
           component: () => import('@/views/Ages/SingleAgePage.vue')
@@ -62,7 +62,7 @@ const router = new Router({
           component: () => import('@/views/Brands/BrandsTablePage.vue')
         },
         {
-          path: '/brands/:routeKey',
+          path: '/brands/show/:routeKey',
           props: true,
           name: 'brands-single',
           component: () => import('@/views/Brands/SingleBrandPage.vue')
@@ -78,7 +78,7 @@ const router = new Router({
           component: () => import('@/views/Categories/CategoriesTablePage.vue')
         },
         {
-          path: '/categories/:routeKey',
+          path: '/categories/show/:routeKey',
           props: true,
           name: 'categories-single',
           component: () => import('@/views/Categories/SingleCategoryPage.vue')
@@ -94,7 +94,7 @@ const router = new Router({
           component: () => import('@/views/Products/ProductsTablePage.vue')
         },
         {
-          path: '/products/:routeKey',
+          path: '/products/show/:routeKey',
           props: true,
           name: 'products-single',
           component: () => import('@/views/Products/SingleProductPage.vue')
