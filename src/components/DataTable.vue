@@ -105,15 +105,25 @@ export default {
   methods: {
     async getRecords (page = this.$route.query.page) {
       this.loading = true
-      const response = await api.get(`${this.endpoint}`, { params: {
-        page
-      } })
-      this.records = response.data.data
-      this.meta = response.data.meta
-      this.headers = response.data.datatable.displayableColumns
-      this.routeKey = response.data.datatable.routeKey
-      this.table = response.data.datatable.table
-      this.loading = false
+      const requestConfig = {
+        method: 'get',
+        url: `${this.endpoint}`,
+        params: {
+          page
+        }
+      }
+      try {
+        const response = await api.customRequest(requestConfig)
+        this.records = response.data.data
+        this.meta = response.data.meta
+        this.headers = response.data.datatable.displayableColumns
+        this.routeKey = response.data.datatable.routeKey
+        this.table = response.data.datatable.table
+        this.loading = false
+      } catch (e) {
+        // handle error
+        alert(e)
+      }
     },
 
     showRecord (record) {

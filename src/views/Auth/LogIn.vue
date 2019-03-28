@@ -46,10 +46,10 @@
                 <v-card-actions>
                   <v-spacer />
                   <v-btn
-                    round
-                    flat
+                    outline
                     color="primary"
                     type="submit"
+                    :disabled="buttonLoading"
                     :loading="buttonLoading"
                   >
                     Submit
@@ -95,8 +95,6 @@ export default {
         })
           .then((result) => {
             this.successRedirect()
-          }).catch((err) => {
-            console.log(err)
           })
           .finally(() => { this.buttonLoading = false })
       }
