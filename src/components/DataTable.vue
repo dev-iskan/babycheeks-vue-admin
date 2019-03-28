@@ -6,8 +6,10 @@
       class="text-xs-center text-sm-left"
     >
       <v-btn
+        v-if="table"
         dark
         outline
+        :to="{name: `${table}-create`}"
         color="primary"
       >
         Create
@@ -59,13 +61,22 @@
           </tr>
         </template>
       </v-data-table>
+      <pagination
+        v-if="meta.current_page"
+        :meta="meta"
+        @pagination:switched="switchPage"
+      />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import api from '@/services/api.service.js'
+import Pagination from '@/components/Pagination'
 export default {
+  components: {
+    Pagination
+  },
   props: {
     endpoint: {
       required: true,
@@ -74,6 +85,7 @@ export default {
   },
   data () {
     return {
+      meta: {},
       search: '',
       headers: [],
       records: [],
@@ -82,22 +94,39 @@ export default {
       loading: false
     }
   },
+  watch: {
+    '$route.query' (query) {
+      this.getRecords(query.page)
+    }
+  },
   created () {
     this.getRecords()
   },
   methods: {
-    async getRecords () {
+    async getRecords (page = this.$route.query.page) {
       this.loading = true
-      const response = await api.get(`${this.endpoint}`)
+      const response = await api.get(`${this.endpoint}`, { params: {
+        page
+      } })
       this.records = response.data.data
-      this.headers = response.data.meta.displayableColumns
-      this.routeKey = response.data.meta.routeKey
-      this.table = response.data.meta.table
+      this.meta = response.data.meta
+      this.headers = response.data.datatable.displayableColumns
+      this.routeKey = response.data.datatable.routeKey
+      this.table = response.data.datatable.table
       this.loading = false
     },
 
     showRecord (record) {
-      this.$router.push({ path: `/${this.table}/${record[this.routeKey]}` })
+      this.$router.push({ name: `${this.table}-single`, params: { routeKey: record[this.routeKey] } })
+    },
+
+    switchPage (page) {
+      this.$router.replace({
+        name: `${this.table}-list`,
+        query: {
+          page
+        }
+      })
     }
   }
 }
