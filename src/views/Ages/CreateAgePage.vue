@@ -17,7 +17,7 @@
           :rules="[rules.required]"
         />
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="pa-3">
         <v-spacer />
         <v-btn
           outline
