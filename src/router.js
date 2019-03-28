@@ -36,7 +36,7 @@ const router = new Router({
       component: Main,
       children: [
         {
-          path: '/',
+          path: '/home',
           name: 'home',
           component: () => import('@/views/Home.vue')
         },

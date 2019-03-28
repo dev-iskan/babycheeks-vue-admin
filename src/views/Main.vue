@@ -11,7 +11,6 @@
           v-for="item in menuItems"
           :key="item.name"
           :to="{name: item.name}"
-          exact
         >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
