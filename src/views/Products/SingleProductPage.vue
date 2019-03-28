@@ -5,14 +5,14 @@
 <script>
 export default {
   props: {
-    slug: {
+    routeKey: {
       required: true,
       type: String
     }
   },
 
   created () {
-    console.log(this.slug)
+    console.log(this.routeKey)
   }
 }
 </script>

@@ -5,14 +5,14 @@
 <script>
 export default {
   props: {
-    id: {
+    routeKey: {
       required: true,
-      type: String
+      type: Number
     }
   },
 
   created () {
-    console.log(this.id)
+    console.log(this.routeKey)
   }
 }
 </script>

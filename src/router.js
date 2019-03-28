@@ -46,10 +46,15 @@ const router = new Router({
           component: () => import('@/views/Ages/AgesTablePage.vue')
         },
         {
-          path: '/ages/:id',
+          path: '/ages/:routeKey',
           props: true,
-          name: 'single-age',
+          name: 'ages-single',
           component: () => import('@/views/Ages/SingleAgePage.vue')
+        },
+        {
+          path: '/ages/create',
+          name: 'ages-create',
+          component: () => import('@/views/Ages/CreateAgePage.vue')
         },
         {
           path: '/brands',
@@ -57,10 +62,15 @@ const router = new Router({
           component: () => import('@/views/Brands/BrandsTablePage.vue')
         },
         {
-          path: '/brands/:slug',
+          path: '/brands/:routeKey',
           props: true,
-          name: 'single-brand',
+          name: 'brands-single',
           component: () => import('@/views/Brands/SingleBrandPage.vue')
+        },
+        {
+          path: '/brands/create',
+          name: 'brands-create',
+          component: () => import('@/views/Brands/CreateBrandPage.vue')
         },
         {
           path: '/categories',
@@ -68,10 +78,15 @@ const router = new Router({
           component: () => import('@/views/Categories/CategoriesTablePage.vue')
         },
         {
-          path: '/categories/:slug',
+          path: '/categories/:routeKey',
           props: true,
-          name: 'single-category',
+          name: 'categories-single',
           component: () => import('@/views/Categories/SingleCategoryPage.vue')
+        },
+        {
+          path: '/categories/create',
+          name: 'categories-create',
+          component: () => import('@/views/Categories/CreateCategoryPage.vue')
         },
         {
           path: '/products',
@@ -79,10 +94,15 @@ const router = new Router({
           component: () => import('@/views/Products/ProductsTablePage.vue')
         },
         {
-          path: '/products/:slug',
+          path: '/products/:routeKey',
           props: true,
-          name: 'single-product',
+          name: 'products-single',
           component: () => import('@/views/Products/SingleProductPage.vue')
+        },
+        {
+          path: '/products/create',
+          name: 'products-create',
+          component: () => import('@/views/Products/CreateProductPage.vue')
         }
       ]
     }
