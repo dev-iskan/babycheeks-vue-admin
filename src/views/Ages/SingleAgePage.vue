@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import api from '@/services/api.service'
 import post from '@/services/post.service'
 export default {
   props: {
@@ -43,22 +42,13 @@ export default {
     }
   },
   created () {
-    this.fetchAge()
+    post.fetchSingle('admin/ages', this.routeKey)
+      .then(age => { this.age = age })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'ages-list' }) }
       })
   },
   methods: {
-    async fetchAge () {
-      const requestConfig = {
-        method: 'get',
-        url: `admin/ages/${this.routeKey}`
-      }
-
-      const response = await api.customRequest(requestConfig)
-      this.age = response.data.data
-    },
-
     destroy () {
       if (confirm('Are you sure?')) {
         post.destroy(`admin/ages/${this.routeKey}`)

@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-card elevation-2">
     <v-card-text>
-      <template v-if="Object.entries(category).length > 0">
+      <template v-if="Object.entries(category).length">
         <div class="subheading">
           <span>id</span>: <span>{{ category.id }}</span>
         </div>
@@ -10,6 +10,9 @@
         </div>
         <div class="subheading">
           <span>description</span>: <div v-html="category.description" />
+        </div>
+        <div class="subheading">
+          <span>parent</span>: <span>{{ category.parent }}</span>
         </div>
         <div class="subheading">
           <span>created at</span>: <span>{{ category.created_at }}</span>
@@ -38,7 +41,6 @@
 </template>
 
 <script>
-import api from '@/services/api.service'
 import post from '@/services/post.service'
 export default {
   props: {
@@ -54,22 +56,13 @@ export default {
     }
   },
   created () {
-    this.fetchCategory()
+    post.fetchSingle('admin/categories', this.routeKey)
+      .then(category => { this.category = category })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'categories-list' }) }
       })
   },
   methods: {
-    async fetchCategory () {
-      const requestConfig = {
-        method: 'get',
-        url: `admin/categories/${this.routeKey}`
-      }
-
-      const response = await api.customRequest(requestConfig)
-      this.category = response.data.data
-    },
-
     destroy () {
       if (confirm('Are you sure?')) {
         post.destroy(`admin/categories/${this.routeKey}`)

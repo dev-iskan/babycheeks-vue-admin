@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import api from '@/services/api.service'
 import post from '@/services/post.service'
 export default {
   props: {
@@ -43,22 +42,13 @@ export default {
     }
   },
   created () {
-    this.fetchBrand()
+    post.fetchSingle('admin/brands', this.routeKey)
+      .then(brand => { this.brand = brand })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'brands-list' }) }
       })
   },
   methods: {
-    async fetchBrand () {
-      const requestConfig = {
-        method: 'get',
-        url: `admin/brands/${this.routeKey}`
-      }
-
-      const response = await api.customRequest(requestConfig)
-      this.brand = response.data.data
-    },
-
     destroy () {
       if (confirm('Are you sure?')) {
         post.destroy(`admin/brands/${this.routeKey}`)

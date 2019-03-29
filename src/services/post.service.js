@@ -1,6 +1,18 @@
 import ApiService from './api.service'
 import store from '@/store'
 const CreateService = {
+  fetchSingle: async (endpoint, routeKey) => {
+    const requestConfig = {
+      method: 'get',
+      url: `${endpoint}/${routeKey}`
+    }
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      return response.data.data
+    } catch (error) {
+      throw error
+    }
+  },
   store: async (endpoint, formData) => {
     const requestConfig = {
       method: 'post',
