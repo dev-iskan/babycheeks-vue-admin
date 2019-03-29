@@ -16,11 +16,12 @@
           type="text"
           :rules="[rules.required]"
         />
-        <v-textarea
+        <editor
           v-model="form.description"
-          label="Description"
-          auto-grow
+          api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
+          :init="options"
         />
+
         <v-autocomplete
           v-model="form.parent_id"
           :items="categories"
@@ -78,9 +79,15 @@ export default {
           autoProcessQueue: false,
           acceptedFiles: 'image/*',
           addRemoveLinks: true,
-          maxFiles: 1,
-          useCustomSlot: true
+          maxFiles: 1
         }
+      },
+      options: {
+        plugins: 'lists, table fullscreen',
+        toolbar: `undo redo fullscreen | styleselect |
+                  bold italic |
+                  alignleft aligncenter alignright alignjustify |
+                  bullist numlist outdent indent`
       },
       categories: [],
       valid: false,
@@ -132,7 +139,9 @@ export default {
     },
 
     clearForm () {
-      this.form = {}
+      this.form.name = ''
+      this.form.description = ''
+      this.form.parent_id = null
       this.$refs.dropzone.removeAllFiles()
     }
   }

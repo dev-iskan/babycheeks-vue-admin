@@ -10,11 +10,12 @@ import './registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import validationMixin from './plugins/mixins/validation'
-
+import Editor from '@tinymce/tinymce-vue'
 import vue2Dropzone from 'vue2-dropzone'
 import './assets/vue2Dropzone.min.css'
 
 Vue.component('VueDropzone', vue2Dropzone)
+Vue.component('Editor', Editor)
 Vue.config.productionTip = false
 Vue.mixin(validationMixin)
 // Set the base URL of the API

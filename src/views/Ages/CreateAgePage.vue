@@ -69,7 +69,7 @@ export default {
       return formData
     },
     clearForm () {
-      this.form = {}
+      this.form.age = ''
     }
   }
 }

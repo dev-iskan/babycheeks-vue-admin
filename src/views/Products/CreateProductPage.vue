@@ -16,10 +16,10 @@
           type="text"
           :rules="[rules.required]"
         />
-        <v-textarea
+        <editor
           v-model="form.description"
-          label="Description"
-          auto-grow
+          api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
+          :init="options"
         />
         <v-radio-group
           v-model="form.gender"
@@ -135,7 +135,7 @@ export default {
         name: '',
         description: '',
         gender: '',
-        brand_id: '',
+        brand_id: null,
         categories: null,
         ages: null
       },
@@ -150,9 +150,15 @@ export default {
           autoProcessQueue: false,
           acceptedFiles: 'image/*',
           addRemoveLinks: true,
-          maxFiles: 5,
-          useCustomSlot: true
+          maxFiles: 5
         }
+      },
+      options: {
+        plugins: 'lists, table fullscreen',
+        toolbar: `undo redo fullscreen | styleselect |
+                  bold italic |
+                  alignleft aligncenter alignright alignjustify |
+                  bullist numlist outdent indent`
       },
       categories: [],
       ages: [],
@@ -223,7 +229,12 @@ export default {
     },
 
     clearForm () {
-      this.form = {}
+      this.form.name = ''
+      this.form.description = ''
+      this.form.gender = ''
+      this.form.brand_id = null
+      this.form.categories = null
+      this.form.ages = null
       this.$refs.dropzone.removeAllFiles()
     }
   }
