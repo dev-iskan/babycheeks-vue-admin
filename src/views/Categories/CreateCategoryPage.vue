@@ -5,7 +5,7 @@
       v-model="valid"
       @submit.prevent="submit"
     >
-      <card-title title="Create new brand" />
+      <card-title title="Create new category" />
       <v-divider />
       <v-card-text>
         <v-text-field
@@ -27,7 +27,6 @@
           item-text="text"
           validate-on-blur
           clearable
-          :menu-props="{'z-index': 9999}"
           :rules="[rules.required]"
           :error-messages="errors.parent_id"
           item-value="value"
@@ -36,6 +35,7 @@
         <vue-dropzone
           id="dropzone"
           ref="dropzone"
+          class="my-2"
           :options="dropzone.options"
         />
       </v-card-text>
@@ -61,12 +61,9 @@ import CardTitle from '@/components/CardTitle'
 import post from '@/services/post.service'
 import api from '@/services/api.service'
 
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 export default {
   components: {
-    CardTitle,
-    VueDropzone: vue2Dropzone
+    CardTitle
   },
   data () {
     return {

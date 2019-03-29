@@ -8,6 +8,7 @@ Vue.use(Vuetify, {
   },
   iconfont: 'md',
   theme: {
-    primary: '#7864ff'
+    primary: '#766cd6',
+    secondary: '#2933DD'
   }
 })
