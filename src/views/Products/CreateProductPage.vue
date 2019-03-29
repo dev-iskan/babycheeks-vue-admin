@@ -39,12 +39,9 @@
           v-model="form.brand_id"
           :items="brands"
           item-text="text"
-          validate-on-blur
-          clearable
-          :rules="[rules.required]"
-          :error-messages="errors.brand_id"
           item-value="value"
           label="Brand"
+          clearable
         />
         <v-autocomplete
           v-model="form.categories"
@@ -135,7 +132,7 @@ export default {
         name: '',
         description: '',
         gender: '',
-        brand_id: null,
+        brand_id: 0,
         categories: null,
         ages: null
       },

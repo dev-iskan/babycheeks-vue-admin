@@ -20,16 +20,14 @@
           v-model="form.description"
           api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
           :init="options"
+          class="my-2"
         />
 
         <v-autocomplete
           v-model="form.parent_id"
           :items="categories"
           item-text="text"
-          validate-on-blur
           clearable
-          :rules="[rules.required]"
-          :error-messages="errors.parent_id"
           item-value="value"
           label="Parent Category"
         />
@@ -71,7 +69,7 @@ export default {
       form: {
         name: '',
         description: '',
-        parent_id: null
+        parent_id: 0
       },
       dropzone: {
         options: {
@@ -116,7 +114,7 @@ export default {
       formData.append('name', this.form.name)
       formData.append('description', this.form.description)
       formData.append('parent_id', this.form.parent_id)
-      formData.append('image', this.$refs.dropzone.getAcceptedFiles()[0])
+      if (this.$refs.dropzone.getAcceptedFiles()[0]) formData.append('image', this.$refs.dropzone.getAcceptedFiles()[0])
       return formData
     },
 

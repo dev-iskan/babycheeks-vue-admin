@@ -7,7 +7,7 @@
           :key="key"
           class="subheading"
         >
-          <span>{{ key }}</span>: <span class="text-uppercase">{{ age[key] }}</span>
+          <span>{{ key }}</span>: <span>{{ age[key] }}</span>
         </div>
       </template>
     </v-card-text>
