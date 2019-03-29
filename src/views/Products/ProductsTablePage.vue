@@ -10,10 +10,8 @@
 
 <script>
 import DataTable from '@/components/DataTable'
-import CardTitle from '@/components/CardTitle'
 export default {
   components: {
-    CardTitle,
     DataTable
   }
 }

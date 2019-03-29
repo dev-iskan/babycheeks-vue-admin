@@ -17,6 +17,20 @@ const CreateService = {
     } catch (error) {
       throw error
     }
+  },
+
+  destroy: async endpoint => {
+    const requestConfig = {
+      method: 'delete',
+      url: endpoint
+    }
+
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      store.dispatch('status/setMessage', response.data.status)
+    } catch (error) {
+      throw error
+    }
   }
 }
 

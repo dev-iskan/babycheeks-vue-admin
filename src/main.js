@@ -13,11 +13,15 @@ import validationMixin from './plugins/mixins/validation'
 import Editor from '@tinymce/tinymce-vue'
 import vue2Dropzone from 'vue2-dropzone'
 import './assets/vue2Dropzone.min.css'
+import CardTitle from '@/components/CardTitle'
 
 Vue.component('VueDropzone', vue2Dropzone)
 Vue.component('Editor', Editor)
+Vue.component('CardTitle', CardTitle)
+
 Vue.config.productionTip = false
 Vue.mixin(validationMixin)
+
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_ROOT_API)
 ApiService.mountInterceptor()
