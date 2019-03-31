@@ -89,23 +89,23 @@ export default {
           title: 'Home'
         },
         {
-          name: 'ages-list',
+          name: 'ages.index',
           icon: 'child_friendly',
           title: 'Ages'
         },
         {
-          name: 'brands-list',
+          name: 'brands.index',
           icon: 'label',
           title: 'Brands'
         },
         {
-          name: 'categories-list',
+          name: 'categories.index',
           icon: 'storage',
           title: 'Categories'
         },
 
         {
-          name: 'products-list',
+          name: 'products.index',
           icon: 'business_center',
           title: 'Products'
         }

@@ -45,7 +45,7 @@ export default {
     crud.fetchSingle('admin/ages', this.routeKey)
       .then(age => { this.age = age })
       .catch(err => {
-        if (err.response.status === 404) { this.$router.push({ name: 'ages-list' }) }
+        if (err.response.status === 404) { this.$router.push({ name: 'ages.index' }) }
       })
   },
   methods: {
@@ -53,7 +53,7 @@ export default {
       if (confirm('Are you sure?')) {
         crud.destroy(`admin/ages/${this.routeKey}`)
           .then(() => {
-            this.$router.push({ name: 'ages-list' })
+            this.$router.push({ name: 'ages.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }

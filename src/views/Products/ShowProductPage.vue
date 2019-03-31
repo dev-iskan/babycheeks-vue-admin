@@ -86,7 +86,7 @@ export default {
     crud.fetchSingle('admin/products', this.routeKey)
       .then(product => { this.product = product })
       .catch(err => {
-        if (err.response.status === 404) { this.$router.push({ name: 'products-list' }) }
+        if (err.response.status === 404) { this.$router.push({ name: 'products.index' }) }
       })
   },
   methods: {
@@ -94,7 +94,7 @@ export default {
       if (confirm('Are you sure?')) {
         crud.destroy(`admin/products/${this.routeKey}`)
           .then(() => {
-            this.$router.push({ name: 'products-list' })
+            this.$router.push({ name: 'products.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }

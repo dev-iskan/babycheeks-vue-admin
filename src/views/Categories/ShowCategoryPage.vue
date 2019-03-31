@@ -59,7 +59,7 @@ export default {
     crud.fetchSingle('admin/categories', this.routeKey)
       .then(category => { this.category = category })
       .catch(err => {
-        if (err.response.status === 404) { this.$router.push({ name: 'categories-list' }) }
+        if (err.response.status === 404) { this.$router.push({ name: 'categories.index' }) }
       })
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
       if (confirm('Are you sure?')) {
         crud.destroy(`admin/categories/${this.routeKey}`)
           .then(() => {
-            this.$router.push({ name: 'categories-list' })
+            this.$router.push({ name: 'categories.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }

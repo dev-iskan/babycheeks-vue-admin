@@ -42,67 +42,91 @@ const router = new Router({
         },
         {
           path: '/ages',
-          name: 'ages-list',
-          component: () => import('@/views/Ages/AgesTablePage.vue')
+          name: 'ages.index',
+          component: () => import('@/views/Ages/IndexAgePage.vue')
         },
         {
           path: '/ages/show/:routeKey',
           props: true,
-          name: 'ages-single',
-          component: () => import('@/views/Ages/SingleAgePage.vue')
+          name: 'ages.show',
+          component: () => import('@/views/Ages/ShowAgePage.vue')
         },
         {
           path: '/ages/create',
-          name: 'ages-create',
+          name: 'ages.create',
           component: () => import('@/views/Ages/CreateAgePage.vue')
         },
         {
+          path: '/ages/edit/:routeKey',
+          props: true,
+          name: 'ages.edit',
+          component: () => import('@/views/Ages/EditAgePage.vue')
+        },
+        {
           path: '/brands',
-          name: 'brands-list',
-          component: () => import('@/views/Brands/BrandsTablePage.vue')
+          name: 'brands.index',
+          component: () => import('@/views/Brands/IndexBrandPage.vue')
         },
         {
           path: '/brands/show/:routeKey',
           props: true,
-          name: 'brands-single',
-          component: () => import('@/views/Brands/SingleBrandPage.vue')
+          name: 'brands.show',
+          component: () => import('@/views/Brands/ShowBrandPage.vue')
         },
         {
           path: '/brands/create',
-          name: 'brands-create',
+          name: 'brands.create',
           component: () => import('@/views/Brands/CreateBrandPage.vue')
         },
         {
+          path: '/brands/edit/:routeKey',
+          props: true,
+          name: 'brands.edit',
+          component: () => import('@/views/Brands/EditBrandPage.vue')
+        },
+        {
           path: '/categories',
-          name: 'categories-list',
-          component: () => import('@/views/Categories/CategoriesTablePage.vue')
+          name: 'categories.index',
+          component: () => import('@/views/Categories/IndexCategoryPage.vue')
         },
         {
           path: '/categories/show/:routeKey',
           props: true,
-          name: 'categories-single',
-          component: () => import('@/views/Categories/SingleCategoryPage.vue')
+          name: 'categories.show',
+          component: () => import('@/views/Categories/ShowCategoryPage.vue')
         },
         {
           path: '/categories/create',
-          name: 'categories-create',
+          name: 'categories.create',
           component: () => import('@/views/Categories/CreateCategoryPage.vue')
         },
         {
+          path: '/categories/edit/:routeKey',
+          props: true,
+          name: 'categories.edit',
+          component: () => import('@/views/Categories/EditCategoryPage.vue')
+        },
+        {
           path: '/products',
-          name: 'products-list',
-          component: () => import('@/views/Products/ProductsTablePage.vue')
+          name: 'products.index',
+          component: () => import('@/views/Products/IndexProductPage.vue')
         },
         {
           path: '/products/show/:routeKey',
           props: true,
-          name: 'products-single',
-          component: () => import('@/views/Products/SingleProductPage.vue')
+          name: 'products.show',
+          component: () => import('@/views/Products/ShowProductPage.vue')
         },
         {
           path: '/products/create',
-          name: 'products-create',
+          name: 'products.create',
           component: () => import('@/views/Products/CreateProductPage.vue')
+        },
+        {
+          path: '/products/edit/:routeKey',
+          props: true,
+          name: 'products.edit',
+          component: () => import('@/views/Products/EditProductPage.vue')
         }
       ]
     }

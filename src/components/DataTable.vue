@@ -9,7 +9,7 @@
         v-if="table"
         dark
         outline
-        :to="{name: `${table}-create`}"
+        :to="{name: `${table}.create`}"
         color="primary"
       >
         Create
@@ -50,7 +50,7 @@
         <template v-slot:items="props">
           <tr
             class="pointer"
-            @click="showRecord(props.item)"
+            @click="showRecord(props.item[routeKey])"
           >
             <td
               v-for="header in headers"
@@ -63,7 +63,7 @@
                   flat
                   small
                   color="primary"
-                  @click.stop.prevent=""
+                  @click.stop.prevent="edit(props.item[routeKey])"
                 >
                   <v-icon
                     small
@@ -148,13 +148,13 @@ export default {
         })
     },
 
-    showRecord (record) {
-      this.$router.push({ name: `${this.table}-single`, params: { routeKey: record[this.routeKey] } })
+    showRecord (key) {
+      this.$router.push({ name: `${this.table}.show`, params: { routeKey: key } })
     },
 
     switchPage (page) {
       this.$router.replace({
-        name: `${this.table}-list`,
+        name: `${this.table}.index`,
         query: {
           page
         }
@@ -168,6 +168,10 @@ export default {
             this.getRecords()
           })
       }
+    },
+
+    edit (key) {
+      this.$router.push({ name: `${this.table}.edit`, params: { routeKey: key } })
     }
   }
 }
