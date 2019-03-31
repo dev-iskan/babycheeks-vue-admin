@@ -43,7 +43,7 @@ export default {
   data () {
     return {
       form: {
-        age: ''
+        name: ''
       },
       valid: false,
       buttonLoading: false,

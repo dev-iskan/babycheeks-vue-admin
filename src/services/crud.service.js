@@ -47,6 +47,27 @@ const CreateService = {
     }
   },
 
+  update: async (endpoint, formData) => {
+    const requestConfig = {
+      method: 'post',
+      url: endpoint,
+      data: formData,
+      params: {
+        '_method': 'PUT'
+      },
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      store.dispatch('status/setMessage', response.data.status)
+      return response.data.status
+    } catch (error) {
+      throw error
+    }
+  },
+
   destroy: async endpoint => {
     const requestConfig = {
       method: 'delete',
