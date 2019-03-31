@@ -35,7 +35,7 @@
 
 <script>
 import CardTitle from '@/components/CardTitle'
-import post from '@/services/post.service'
+import crud from '@/services/crud.service'
 export default {
   components: {
     CardTitle
@@ -56,7 +56,7 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        post.store('admin/brands', this.createFormData())
+        crud.store('admin/brands', this.createFormData())
           .then(() => {
             this.clearForm()
           })

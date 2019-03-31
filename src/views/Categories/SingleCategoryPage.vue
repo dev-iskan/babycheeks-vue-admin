@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import post from '@/services/post.service'
+import crud from '@/services/crud.service'
 export default {
   props: {
     routeKey: {
@@ -56,7 +56,7 @@ export default {
     }
   },
   created () {
-    post.fetchSingle('admin/categories', this.routeKey)
+    crud.fetchSingle('admin/categories', this.routeKey)
       .then(category => { this.category = category })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'categories-list' }) }
@@ -65,7 +65,7 @@ export default {
   methods: {
     destroy () {
       if (confirm('Are you sure?')) {
-        post.destroy(`admin/categories/${this.routeKey}`)
+        crud.destroy(`admin/categories/${this.routeKey}`)
           .then(() => {
             this.$router.push({ name: 'categories-list' })
           })

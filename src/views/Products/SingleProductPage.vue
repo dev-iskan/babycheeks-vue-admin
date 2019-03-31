@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import post from '@/services/post.service'
+import crud from '@/services/crud.service'
 export default {
   props: {
     routeKey: {
@@ -83,7 +83,7 @@ export default {
     }
   },
   created () {
-    post.fetchSingle('admin/products', this.routeKey)
+    crud.fetchSingle('admin/products', this.routeKey)
       .then(product => { this.product = product })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'products-list' }) }
@@ -92,7 +92,7 @@ export default {
   methods: {
     destroy () {
       if (confirm('Are you sure?')) {
-        post.destroy(`admin/products/${this.routeKey}`)
+        crud.destroy(`admin/products/${this.routeKey}`)
           .then(() => {
             this.$router.push({ name: 'products-list' })
           })

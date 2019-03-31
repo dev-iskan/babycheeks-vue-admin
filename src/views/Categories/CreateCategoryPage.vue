@@ -57,7 +57,7 @@
 
 <script>
 import CardTitle from '@/components/CardTitle'
-import post from '@/services/post.service'
+import crud from '@/services/crud.service'
 import api from '@/services/api.service'
 
 export default {
@@ -102,7 +102,7 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        post.store('admin/categories', this.createFormData())
+        crud.store('admin/categories', this.createFormData())
           .then(() => {
             this.clearForm()
           })

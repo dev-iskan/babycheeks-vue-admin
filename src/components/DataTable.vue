@@ -55,8 +55,39 @@
             <td
               v-for="header in headers"
               :key="header.value"
+              :class="{'justify-center align-center layout px-0' : header.value === ''}"
             >
-              {{ props.item[header.value] }}
+              <template v-if="header.value=== ''">
+                <v-btn
+                  icon
+                  flat
+                  small
+                  color="primary"
+                  @click.stop.prevent=""
+                >
+                  <v-icon
+                    small
+                  >
+                    edit
+                  </v-icon>
+                </v-btn>
+                <v-btn
+                  icon
+                  flat
+                  small
+                  color="red"
+                  @click.stop.prevent="destroy(props.item[routeKey])"
+                >
+                  <v-icon
+                    small
+                  >
+                    delete
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-else>
+                {{ props.item[header.value] }}
+              </template>
             </td>
           </tr>
         </template>
@@ -71,7 +102,7 @@
 </template>
 
 <script>
-import api from '@/services/api.service.js'
+import crud from '@/services/crud.service.js'
 import Pagination from '@/components/Pagination'
 export default {
   components: {
@@ -103,27 +134,18 @@ export default {
     this.getRecords()
   },
   methods: {
-    async getRecords (page = this.$route.query.page) {
+    getRecords (page = this.$route.query.page) {
       this.loading = true
-      const requestConfig = {
-        method: 'get',
-        url: `${this.endpoint}`,
-        params: {
-          page
-        }
-      }
-      try {
-        const response = await api.customRequest(requestConfig)
-        this.records = response.data.data
-        this.meta = response.data.meta
-        this.headers = response.data.datatable.displayableColumns
-        this.routeKey = response.data.datatable.routeKey
-        this.table = response.data.datatable.table
-        this.loading = false
-      } catch (e) {
-        // handle error
-        alert(e)
-      }
+      crud.fetchRecords(page, this.endpoint)
+        .then(data => {
+          this.records = data.data
+          this.meta = data.meta
+          this.headers = data.datatable.displayableColumns
+          this.headers.push({ text: 'Actions', value: '', sortable: false })
+          this.routeKey = data.datatable.routeKey
+          this.table = data.datatable.table
+          this.loading = false
+        })
     },
 
     showRecord (record) {
@@ -137,6 +159,15 @@ export default {
           page
         }
       })
+    },
+
+    destroy (key) {
+      if (confirm('Are you sure?')) {
+        crud.destroy(`admin/${this.table}/${key}`)
+          .then(() => {
+            this.getRecords()
+          })
+      }
     }
   }
 }
