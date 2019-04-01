@@ -72,21 +72,14 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.update(`admin/brands/${this.routeKey}`, this.createFormData())
+        crud.update(`admin/brands/${this.routeKey}`, {
+          name: this.form.name
+        })
           .then(() => {
-            this.clearForm()
             this.$router.push({ name: 'brands.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    createFormData () {
-      const formData = new FormData()
-      formData.append('name', this.form.name)
-      return formData
-    },
-    clearForm () {
-      this.form.name = ''
     }
   }
 }

@@ -72,21 +72,14 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.update(`admin/ages/${this.routeKey}`, this.createFormData())
+        crud.update(`admin/ages/${this.routeKey}`, {
+          age: this.form.age
+        })
           .then(() => {
-            this.clearForm()
             this.$router.push({ name: 'ages.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    createFormData () {
-      const formData = new FormData()
-      formData.append('age', this.form.age)
-      return formData
-    },
-    clearForm () {
-      this.form.age = ''
     }
   }
 }

@@ -77,9 +77,12 @@ const CreateService = {
 
   update: async (endpoint, formData) => {
     const requestConfig = {
-      method: 'put',
+      method: 'post',
       url: endpoint,
-      data: formData
+      data: formData,
+      params: {
+        _method: 'put'
+      }
     }
     try {
       const response = await ApiService.customRequest(requestConfig)

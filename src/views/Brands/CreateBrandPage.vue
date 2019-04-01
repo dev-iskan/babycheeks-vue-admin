@@ -56,20 +56,14 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.store('admin/brands', this.createFormData())
+        crud.store('admin/brands', {
+          name: this.form.name
+        })
           .then(() => {
-            this.clearForm()
+            this.$router.push({ name: 'brands.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    createFormData () {
-      const formData = new FormData()
-      formData.append('name', this.form.name)
-      return formData
-    },
-    clearForm () {
-      this.form.name = ''
     }
   }
 }
