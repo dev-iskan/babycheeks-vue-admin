@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-card elevation-2">
     <v-card-text>
-      <template v-if="Object.entries(brand).length > 0">
+      <template v-if="Object.keys(brand).length > 0">
         <div
           v-for="key in Object.keys(brand)"
           :key="key"

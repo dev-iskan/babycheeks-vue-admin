@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-card elevation-2">
     <v-card-text>
-      <template v-if="Object.entries(product).length">
+      <template v-if="Object.keys(product).length">
         <div class="subheading">
           <span class="green--text">id</span>: <span>{{ product.id }}</span>
         </div>

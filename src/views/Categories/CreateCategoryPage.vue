@@ -128,10 +128,10 @@ export default {
       }
       const response = await api.customRequest(requestConfig)
 
-      this.categories = Object.entries(response.data).map((entry) => {
+      this.categories = Object.keys(response.data).map(key => {
         return {
-          value: entry[0],
-          text: entry[1]
+          value: key,
+          text: response.data[key]
         }
       })
     },
