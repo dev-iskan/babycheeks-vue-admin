@@ -67,6 +67,8 @@ export default {
   data () {
     return {
       form: {
+        id: '',
+        slug: '',
         name: '',
         description: '',
         parent_id: 0
@@ -96,15 +98,21 @@ export default {
     }
   },
   created () {
+    crud.create('admin/categories')
+      .then(category => {
+        this.form.id = category.id
+        this.form.slug = category.slug
+      })
     this.fetchParentCategories()
   },
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.store('admin/categories', this.createFormData())
+        crud.store('admin/categories', this.createFormData(), this.form.slug)
           .then(() => {
             this.clearForm()
+            this.$router.push({ name: 'categories.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }

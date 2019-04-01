@@ -29,10 +29,23 @@ const CreateService = {
       throw error
     }
   },
-  store: async (endpoint, formData) => {
+  create: async (endpoint) => {
+    const requestConfig = {
+      method: 'get',
+      url: `${endpoint}/create`
+    }
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      return response.data.data
+    } catch (error) {
+      throw error
+    }
+  },
+
+  store: async (endpoint, formData, routeKey = null) => {
     const requestConfig = {
       method: 'post',
-      url: endpoint,
+      url: routeKey ? `${endpoint}/${routeKey}` : endpoint,
       data: formData,
       headers: {
         'Content-Type': 'multipart/form-data'

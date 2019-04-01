@@ -129,6 +129,8 @@ export default {
   data () {
     return {
       form: {
+        id: '',
+        slug: '',
         name: '',
         description: '',
         gender: '',
@@ -168,6 +170,11 @@ export default {
     }
   },
   created () {
+    crud.create('admin/products')
+      .then(product => {
+        this.form.id = product.id
+        this.form.slug = product.slug
+      })
     this.fetchData('categories')
     this.fetchData('brands')
     this.fetchData('ages')
@@ -176,9 +183,10 @@ export default {
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.store('admin/products', this.createFormData())
+        crud.store('admin/products', this.createFormData(), this.form.slug)
           .then(() => {
             this.clearForm()
+            this.$router.push({ name: 'categories.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
