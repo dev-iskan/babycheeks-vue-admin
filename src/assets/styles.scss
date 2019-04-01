@@ -9,3 +9,7 @@
 .pointer {
   cursor: pointer;
 }
+
+[data-dz-thumbnail] {
+  object-fit: cover!important;
+}

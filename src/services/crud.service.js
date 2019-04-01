@@ -29,6 +29,24 @@ const CreateService = {
       throw error
     }
   },
+
+  fetchMedia: async (model, slug) => {
+    const requestConfig = {
+      method: 'get',
+      url: `admin/media`,
+      params: {
+        model,
+        slug
+      }
+    }
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      return response.data.data
+    } catch (error) {
+      throw error
+    }
+  },
+
   create: async (endpoint) => {
     const requestConfig = {
       method: 'get',
@@ -46,10 +64,7 @@ const CreateService = {
     const requestConfig = {
       method: 'post',
       url: routeKey ? `${endpoint}/${routeKey}` : endpoint,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      data: formData
     }
     try {
       const response = await ApiService.customRequest(requestConfig)
@@ -62,15 +77,9 @@ const CreateService = {
 
   update: async (endpoint, formData) => {
     const requestConfig = {
-      method: 'post',
+      method: 'put',
       url: endpoint,
-      data: formData,
-      params: {
-        '_method': 'PUT'
-      },
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      data: formData
     }
     try {
       const response = await ApiService.customRequest(requestConfig)

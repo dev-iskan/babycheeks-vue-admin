@@ -39,6 +39,10 @@
           ref="dropzone"
           class="my-2"
           :options="dropzone.options"
+          @vdropzone-sending="sending"
+          @vdropzone-removed-file="removing"
+          @vdropzone-success="success"
+          @vdropzone-mounted="mounted"
         />
       </v-card-text>
 
@@ -62,6 +66,7 @@
 import CardTitle from '@/components/CardTitle'
 import crud from '@/services/crud.service'
 import api from '@/services/api.service'
+import { TokenService } from '@/services/storage.service'
 
 export default {
   components: {
@@ -75,18 +80,23 @@ export default {
   },
   data () {
     return {
+      sucess: false,
       form: {
         name: '',
         description: '',
-        parent_id: 0
+        parent_id: 0,
+        image_id: null
       },
       dropzone: {
         options: {
-          url: 'test',
-          autoProcessQueue: false,
+          url: `${process.env.VUE_APP_ROOT_API}admin/media/store`,
+          paramName: 'image',
           acceptedFiles: 'image/*',
           addRemoveLinks: true,
-          maxFiles: 1
+          maxFiles: 1,
+          headers: {
+            'Authorization': `Bearer ${TokenService.getToken()}`
+          }
         }
       },
       options: {
@@ -117,24 +127,72 @@ export default {
       })
   },
   methods: {
+    sending (file, xhr, formData) {
+      formData.append('model', 'category')
+      formData.append('slug', this.routeKey)
+    },
+    mounted () {
+      crud.fetchMedia('category', this.routeKey)
+        .then(media => {
+          media.forEach(item => {
+            const file = {
+              id: item.id,
+              name: item.name,
+              size: item.size,
+              dataURL: item.dataURL
+            }
+            this.$refs.dropzone.manuallyAddFile(file, file.dataURL)
+          })
+        })
+    },
+    removing (file, xhr, formData) {
+      if (this.sucess) {
+        return
+      }
+      api.delete(`admin/media/destroy/${file.id}`)
+        .catch(() => {
+          if (file.id) {
+            this.addFileToDropzone(file)
+          }
+        })
+    },
+    success (file, response) {
+      file.id = response.id
+      this.form.image_id = response.id
+    },
+    addFileToDropzone (file) {
+      const drop = this.$refs.dropzone.dropzone
+      drop.emit('addedfile', file)
+      drop.files.push(file);
+      ((file) => {
+        drop.createThumbnailFromUrl(
+          file,
+          200,
+          200,
+          drop.options.thumbnailMethod,
+          true,
+          thumbnail => {
+            drop.emit('thumbnail', file, thumbnail)
+          },
+          'Anonymous'
+        )
+      })(file)
+      drop.emit('complete', file)
+    },
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.update(`admin/categories/${this.routeKey}`, this.createFormData())
+        crud.update(`admin/categories/${this.routeKey}`, {
+          name: this.form.name,
+          description: this.form.description,
+          parent_id: this.form.parent_id,
+          image: this.form.image_id
+        })
           .then(() => {
-            this.clearForm()
             this.$router.push({ name: 'categories.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    createFormData () {
-      const formData = new FormData()
-      formData.append('name', this.form.name)
-      formData.append('description', this.form.description)
-      formData.append('parent_id', this.form.parent_id)
-      if (this.$refs.dropzone.getAcceptedFiles()[0]) formData.append('image', this.$refs.dropzone.getAcceptedFiles()[0])
-      return formData
     },
 
     async fetchParentCategories () {
@@ -154,18 +212,14 @@ export default {
           text: response.data[key]
         }
       })
-    },
-
-    clearForm () {
-      this.form.name = ''
-      this.form.description = ''
-      this.form.parent_id = null
-      this.$refs.dropzone.removeAllFiles()
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    this.sucess = true
+    next()
   }
 }
 </script>
 
 <style scoped>
-
 </style>
