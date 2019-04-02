@@ -98,6 +98,9 @@
           ref="dropzone"
           class="my-2"
           :options="dropzone.options"
+          @vdropzone-sending="sending"
+          @vdropzone-removed-file="removing"
+          @vdropzone-success="success"
         />
       </v-card-text>
 
@@ -121,6 +124,7 @@
 import CardTitle from '@/components/CardTitle'
 import crud from '@/services/crud.service'
 import api from '@/services/api.service'
+import { TokenService } from '@/services/storage.service'
 
 export default {
   components: {
@@ -128,6 +132,7 @@ export default {
   },
   data () {
     return {
+      sucess: false,
       form: {
         id: '',
         slug: '',
@@ -136,7 +141,8 @@ export default {
         gender: '',
         brand_id: 0,
         categories: null,
-        ages: null
+        ages: null,
+        images: []
       },
       genders: [
         { value: 'm', text: 'Male' },
@@ -145,11 +151,14 @@ export default {
       ],
       dropzone: {
         options: {
-          url: 'test',
-          autoProcessQueue: false,
+          url: `${process.env.VUE_APP_ROOT_API}admin/media/store`,
           acceptedFiles: 'image/*',
+          paramName: 'image',
           addRemoveLinks: true,
-          maxFiles: 5
+          maxFiles: 5,
+          headers: {
+            'Authorization': `Bearer ${TokenService.getToken()}`
+          }
         }
       },
       options: {
@@ -180,34 +189,61 @@ export default {
     this.fetchData('ages')
   },
   methods: {
+    sending (file, xhr, formData) {
+      formData.append('model', 'product')
+      formData.append('slug', this.form.slug)
+    },
+    removing (file, xhr, formData) {
+      if (this.sucess) {
+        return
+      }
+      api.delete(`admin/media/destroy/${file.id}`)
+        .catch(() => {
+          if (file.id) {
+            this.addFileToDropzone(file)
+          }
+        })
+    },
+    success (file, response) {
+      file.id = response.id
+      this.form.images.push(response.id)
+    },
+    addFileToDropzone (file) {
+      const drop = this.$refs.dropzone.dropzone
+      drop.emit('addedfile', file)
+      drop.files.push(file);
+      ((file) => {
+        drop.createThumbnailFromUrl(
+          file,
+          200,
+          200,
+          drop.options.thumbnailMethod,
+          true,
+          thumbnail => {
+            drop.emit('thumbnail', file, thumbnail)
+          },
+          'Anonymous'
+        )
+      })(file)
+      drop.emit('complete', file)
+    },
     submit () {
       if (this.$refs.form.validate()) {
         this.buttonLoading = true
-        crud.store('admin/products', this.createFormData(), this.form.slug)
+        crud.store('admin/products', {
+          name: this.form.name,
+          description: this.form.description,
+          gender: this.form.gender,
+          brand_id: this.form.brand_id,
+          categories: this.form.categories,
+          ages: this.form.ages,
+          images: this.form.images
+        }, this.form.slug)
           .then(() => {
-            this.clearForm()
-            this.$router.push({ name: 'categories.index' })
+            this.$router.push({ name: 'products.index' })
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    createFormData () {
-      const formData = new FormData()
-      formData.append('name', this.form.name)
-      formData.append('description', this.form.description)
-      formData.append('gender', this.form.gender)
-      formData.append('brand_id', this.form.brand_id)
-
-      this.form.categories.forEach(el => {
-        formData.append('categories[]', el)
-      })
-      this.form.ages.forEach(el => {
-        formData.append('ages[]', el)
-      })
-      this.$refs.dropzone.getAcceptedFiles().forEach((file, index) => {
-        formData.append('images[]', file)
-      })
-      return formData
     },
 
     async fetchData (endpoint) {
@@ -231,17 +267,11 @@ export default {
     removeChip (item, data) {
       const index = this.form[data].indexOf(item.value)
       this.form[data].splice(index, 1)
-    },
-
-    clearForm () {
-      this.form.name = ''
-      this.form.description = ''
-      this.form.gender = ''
-      this.form.brand_id = null
-      this.form.categories = null
-      this.form.ages = null
-      this.$refs.dropzone.removeAllFiles()
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    this.sucess = true
+    next()
   }
 }
 </script>
