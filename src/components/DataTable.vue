@@ -95,6 +95,7 @@
       <pagination
         v-if="meta.current_page"
         :meta="meta"
+        class="pa-3"
         @pagination:switched="switchPage"
       />
     </v-flex>

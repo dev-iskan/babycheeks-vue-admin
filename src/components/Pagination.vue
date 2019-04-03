@@ -1,9 +1,9 @@
 <template>
-  <div class="text-xs-center pa-3">
+  <div class="text-xs-center">
     <v-pagination
       v-model="page"
       :length="meta.last_page"
-      total-visible="7"
+      :total-visible="$vuetify.breakpoint.xsOnly ? 2 : 7"
       @input="switched"
     />
   </div>
