@@ -86,7 +86,7 @@
                 </v-btn>
               </template>
               <template v-else>
-                {{ props.item[header.value] }}
+                {{ props.item[header.value] | nullValue }}
               </template>
             </td>
           </tr>
@@ -107,6 +107,11 @@ import Pagination from '@/components/Pagination'
 export default {
   components: {
     Pagination
+  },
+  filters: {
+    nullValue (value) {
+      return value || 'No value'
+    }
   },
   props: {
     endpoint: {

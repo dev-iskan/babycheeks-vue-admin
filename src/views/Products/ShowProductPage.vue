@@ -55,9 +55,19 @@
     <v-card-actions class="pa-3">
       <v-spacer />
       <v-btn
+        :loading="telegramButtonLoading"
+        dark
+        color="blue"
+        @click.prevent="sendToTelegram"
+      >
+        <v-icon left>
+          send
+        </v-icon>
+        Send Telegram
+      </v-btn>
+      <v-btn
         outline
         :loading="buttonLoading"
-        :disabled="buttonLoading"
         color="red"
         @click.prevent="destroy"
       >
@@ -79,6 +89,7 @@ export default {
   data () {
     return {
       product: {},
+      telegramButtonLoading: false,
       buttonLoading: false
     }
   },
@@ -90,8 +101,14 @@ export default {
       })
   },
   methods: {
+    sendToTelegram () {
+      this.telegramButtonLoading = true
+      crud.sendToTelegram(this.routeKey)
+        .finally(() => { this.telegramButtonLoading = false })
+    },
     destroy () {
       if (confirm('Are you sure?')) {
+        this.buttonLoading = true
         crud.destroy(`admin/products/${this.routeKey}`)
           .then(() => {
             this.$router.push({ name: 'products.index' })

@@ -49,7 +49,6 @@
                     outline
                     color="primary"
                     type="submit"
-                    :disabled="buttonLoading"
                     :loading="buttonLoading"
                   >
                     Submit

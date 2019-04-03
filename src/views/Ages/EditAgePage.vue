@@ -26,7 +26,6 @@
           outline
           type="submit"
           :loading="buttonLoading"
-          :disabled="buttonLoading"
           color="primary"
         >
           Update

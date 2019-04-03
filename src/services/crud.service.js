@@ -105,6 +105,20 @@ const CreateService = {
     } catch (error) {
       throw error
     }
+  },
+
+  sendToTelegram: async productSlug => {
+    const requestConfig = {
+      method: 'post',
+      url: `telegram/${productSlug}`
+    }
+
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      store.dispatch('status/setMessage', response.data.status)
+    } catch (error) {
+      throw error
+    }
   }
 }
 

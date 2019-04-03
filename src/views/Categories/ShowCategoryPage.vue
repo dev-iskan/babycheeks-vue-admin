@@ -30,7 +30,6 @@
       <v-btn
         outline
         :loading="buttonLoading"
-        :disabled="buttonLoading"
         color="red"
         @click.prevent="destroy"
       >
