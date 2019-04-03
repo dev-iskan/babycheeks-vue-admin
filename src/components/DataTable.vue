@@ -168,12 +168,11 @@ export default {
     },
 
     destroy (key) {
-      if (confirm('Are you sure?')) {
-        crud.destroy(`admin/${this.table}/${key}`)
-          .then(() => {
-            this.getRecords()
-          })
-      }
+      if (!confirm('Are you sure?')) return
+      crud.destroy(`admin/${this.table}/${key}`)
+        .then(() => {
+          this.getRecords()
+        })
     },
 
     edit (key) {

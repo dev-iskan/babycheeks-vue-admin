@@ -1,6 +1,6 @@
 <template>
   <v-container
-    grid-list-md
+    grid-list-xl
     class="pa-0"
   >
     <v-layout
@@ -15,6 +15,8 @@
       >
         <order-card
           :order="order"
+          @remove="removeOrder"
+          @update="updateOrder"
         />
       </v-flex>
     </v-layout>
@@ -68,6 +70,18 @@ export default {
           page
         }
       })
+    },
+    updateOrder (id, val) {
+      crud.update(`admin/orders/${id}`, { finished: val })
+        .then(() => {
+          this.getOrders()
+        })
+    },
+    removeOrder (id) {
+      crud.destroy(`admin/orders/${id}`)
+        .then(() => {
+          this.getOrders()
+        })
     }
   }
 }
