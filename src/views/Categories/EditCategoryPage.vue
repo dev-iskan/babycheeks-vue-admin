@@ -113,17 +113,19 @@ export default {
       }
     }
   },
-  created () {
-    this.fetchParentCategories()
-    crud.fetchSingle('admin/categories', this.routeKey)
-      .then(category => {
-        this.form.name = category.name
-        this.form.description = category.description
-        this.form.parent_id = String(category.parent)
-      })
-      .catch(err => {
-        if (err.response.status === 404) { this.$router.push({ name: 'categories.index' }) }
-      })
+  async created () {
+    this.categories = await crud.pluckData('admin/categories', {
+      parent: true
+    })
+
+    try {
+      const category = await crud.fetchSingle('admin/categories', this.routeKey)
+      this.form.name = category.name
+      this.form.description = category.description
+      this.form.parent_id = String(category.parent)
+    } catch (e) {
+      if (e.response.status === 404) { this.$router.push({ name: 'categories.index' }) }
+    }
   },
   methods: {
     sending (file, xhr, formData) {

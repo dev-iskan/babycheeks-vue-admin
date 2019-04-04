@@ -177,15 +177,20 @@ export default {
       }
     }
   },
-  created () {
-    crud.create('admin/products')
-      .then(product => {
-        this.form.id = product.id
-        this.form.slug = product.slug
-      })
-    this.fetchData('categories')
-    this.fetchData('brands')
-    this.fetchData('ages')
+  async created () {
+    const product = await crud.create('admin/products')
+    this.form.id = product.id
+    this.form.slug = product.slug
+
+    this.categories = await crud.pluckData('admin/categories', {
+      pluck: true
+    })
+    this.brands = await crud.pluckData('admin/brands', {
+      pluck: true
+    })
+    this.ages = await crud.pluckData('admin/ages', {
+      pluck: true
+    })
   },
   methods: {
     sending (file, xhr, formData) {
@@ -243,24 +248,6 @@ export default {
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-
-    async fetchData (endpoint) {
-      const requestConfig = {
-        method: 'get',
-        url: `admin/${endpoint}`,
-        params: {
-          pluck: true
-        }
-      }
-      const response = await api.customRequest(requestConfig)
-
-      this[endpoint] = Object.keys(response.data).map(key => {
-        return {
-          value: key,
-          text: response.data[key]
-        }
-      })
     },
 
     removeChip (item, data) {

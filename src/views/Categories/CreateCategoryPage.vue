@@ -105,13 +105,14 @@ export default {
       }
     }
   },
-  created () {
-    crud.create('admin/categories')
-      .then(category => {
-        this.form.id = category.id
-        this.form.slug = category.slug
-      })
-    this.fetchParentCategories()
+  async created () {
+    const category = await crud.create('admin/categories')
+    this.form.id = category.id
+    this.form.slug = category.slug
+
+    this.categories = await crud.pluckData('admin/categories', {
+      parent: true
+    })
   },
   methods: {
     sending (file, xhr, formData) {
@@ -166,24 +167,6 @@ export default {
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-
-    async fetchParentCategories () {
-      const requestConfig = {
-        method: 'get',
-        url: 'admin/categories',
-        params: {
-          parent: true
-        }
-      }
-      const response = await api.customRequest(requestConfig)
-
-      this.categories = Object.keys(response.data).map(key => {
-        return {
-          value: key,
-          text: response.data[key]
-        }
-      })
     }
   },
   beforeRouteLeave (to, from, next) {

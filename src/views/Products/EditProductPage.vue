@@ -185,22 +185,27 @@ export default {
       }
     }
   },
-  created () {
-    this.fetchData('categories')
-    this.fetchData('brands')
-    this.fetchData('ages')
-    crud.fetchSingle('admin/products', this.routeKey)
-      .then(product => {
-        this.form.name = product.name
-        this.form.description = product.description
-        this.form.brand_id = String(product.brand)
-        this.form.gender = product.gender
-        this.form.categories = Object.keys(product.categories)
-        this.form.ages = Object.keys(product.ages)
-      })
-      .catch(err => {
-        if (err.response.status === 404) { this.$router.push({ name: 'products.index' }) }
-      })
+  async created () {
+    this.categories = await crud.pluckData('admin/categories', {
+      pluck: true
+    })
+    this.brands = await crud.pluckData('admin/brands', {
+      pluck: true
+    })
+    this.ages = await crud.pluckData('admin/ages', {
+      pluck: true
+    })
+    const product = await crud.fetchSingle('admin/products', this.routeKey)
+    try {
+      this.form.name = product.name
+      this.form.description = product.description
+      this.form.brand_id = String(product.brand)
+      this.form.gender = product.gender
+      this.form.categories = Object.keys(product.categories)
+      this.form.ages = Object.keys(product.ages)
+    } catch (err) {
+      if (err.response.status === 404) { this.$router.push({ name: 'products.index' }) }
+    }
   },
   methods: {
     sending (file, xhr, formData) {
@@ -272,23 +277,6 @@ export default {
           })
           .finally(() => { this.buttonLoading = false })
       }
-    },
-    async fetchData (endpoint) {
-      const requestConfig = {
-        method: 'get',
-        url: `admin/${endpoint}`,
-        params: {
-          pluck: true
-        }
-      }
-      const response = await api.customRequest(requestConfig)
-
-      this[endpoint] = Object.keys(response.data).map(key => {
-        return {
-          value: key,
-          text: response.data[key]
-        }
-      })
     },
 
     removeChip (item, data) {

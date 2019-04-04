@@ -1,6 +1,26 @@
 import ApiService from './api.service'
 import store from '@/store'
 const CreateService = {
+  pluckData: async (endpoint, params) => {
+    const requestConfig = {
+      method: 'get',
+      url: endpoint,
+      params
+    }
+
+    try {
+      const response = await ApiService.customRequest(requestConfig)
+      const data = Object.keys(response.data).map(key => {
+        return {
+          value: key,
+          text: response.data[key]
+        }
+      })
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
   fetchRecords: async (page, endpoint) => {
     const requestConfig = {
       method: 'get',
