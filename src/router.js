@@ -34,9 +34,10 @@ const router = new Router({
     {
       path: '/',
       component: Main,
+      redirect: { name: 'home' },
       children: [
         {
-          path: '/home',
+          path: 'home',
           name: 'home',
           component: () => import('@/views/Home.vue')
         },

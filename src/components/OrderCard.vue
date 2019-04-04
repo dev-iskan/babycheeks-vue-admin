@@ -1,7 +1,10 @@
 <template>
   <v-card class="rounded-card">
     <v-card-text>
-      <div class="subheading">
+      <div
+        v-if="order.product"
+        class="subheading"
+      >
         <router-link
 
           :to="{name:'products.show',
@@ -9,6 +12,12 @@
         >
           {{ order.product.name }}
         </router-link>
+      </div>
+      <div
+        v-else
+        class="subheading font-weight-light"
+      >
+        No product
       </div>
 
       <div class="subheading font-weight-light">

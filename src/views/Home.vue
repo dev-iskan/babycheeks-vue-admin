@@ -4,6 +4,19 @@
     class="pa-0"
   >
     <v-layout
+      v-if="loading"
+      justify-center
+      fill-height
+      allign-center
+    >
+      <v-progress-circular
+        indeterminate
+        size="100"
+        color="secondary"
+      />
+    </v-layout>
+    <v-layout
+      v-else
       row
       wrap
     >
@@ -21,8 +34,7 @@
       </v-flex>
     </v-layout>
     <pagination
-      v-if="
-        meta.current_page"
+      v-if="!loading && meta.current_page"
       :meta="meta"
       @pagination:switched="switchPage"
     />
@@ -60,8 +72,7 @@ export default {
         .then(data => {
           this.meta = data.meta
           this.orders = data.data
-          this.loading = false
-        })
+        }).finally(() => { this.loading = false })
     },
     switchPage (page) {
       this.$router.replace({
