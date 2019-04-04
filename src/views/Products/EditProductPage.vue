@@ -22,7 +22,7 @@
         <editor
           v-model="form.description"
           api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
-          :init="options"
+          :init="tinymce"
         />
         <v-radio-group
           v-model="form.gender"
@@ -100,7 +100,7 @@
           id="dropzone"
           ref="dropzone"
           class="my-2"
-          :options="dropzone.options"
+          :options="dropzone"
           @vdropzone-sending="sending"
           @vdropzone-removed-file="removing"
           @vdropzone-success="success"
@@ -127,8 +127,7 @@
 import CardTitle from '@/components/CardTitle'
 import crud from '@/services/crud.service'
 import api from '@/services/api.service'
-import { TokenService } from '@/services/storage.service'
-
+import { dropzone, tinymce } from '@/utils/common'
 export default {
   components: {
     CardTitle
@@ -156,25 +155,8 @@ export default {
         { value: 'f', text: 'Female' },
         { value: 'u', text: 'Unisex' }
       ],
-      dropzone: {
-        options: {
-          url: `${process.env.VUE_APP_ROOT_API}admin/media/store`,
-          acceptedFiles: 'image/*',
-          paramName: 'image',
-          addRemoveLinks: true,
-          maxFiles: 5,
-          headers: {
-            'Authorization': `Bearer ${TokenService.getToken()}`
-          }
-        }
-      },
-      options: {
-        plugins: 'lists, table fullscreen',
-        toolbar: `undo redo fullscreen | styleselect |
-                  bold italic |
-                  alignleft aligncenter alignright alignjustify |
-                  bullist numlist outdent indent`
-      },
+      dropzone: dropzone(5),
+      tinymce,
       categories: [],
       ages: [],
       brands: [],
@@ -230,35 +212,16 @@ export default {
       if (this.sucess) {
         return
       }
-      api.delete(`admin/media/destroy/${file.id}`)
-        .catch(() => {
-          if (file.id) {
-            this.addFileToDropzone(file)
-          }
-        })
+      if (file.id) {
+        api.delete(`admin/media/destroy/${file.id}`)
+          .catch(() => {
+            this.$refs.dropzone.manuallyAddFile(file, file.dataURL)
+          })
+      }
     },
     success (file, response) {
       file.id = response.id
       this.form.images.push(response.id)
-    },
-    addFileToDropzone (file) {
-      const drop = this.$refs.dropzone.dropzone
-      drop.emit('addedfile', file)
-      drop.files.push(file);
-      ((file) => {
-        drop.createThumbnailFromUrl(
-          file,
-          200,
-          200,
-          drop.options.thumbnailMethod,
-          true,
-          thumbnail => {
-            drop.emit('thumbnail', file, thumbnail)
-          },
-          'Anonymous'
-        )
-      })(file)
-      drop.emit('complete', file)
     },
     submit () {
       if (this.$refs.form.validate()) {
