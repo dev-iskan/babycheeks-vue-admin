@@ -1,8 +1,9 @@
 <template>
   <v-snackbar
     bottom
+    right
     :value="message"
-    color="green"
+    color="deep-purple lighten-3"
     @input="closeSnack"
   >
     <v-flex

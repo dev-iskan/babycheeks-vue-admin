@@ -15,6 +15,13 @@
       <v-spacer />
       <v-btn
         outline
+        color="blue"
+        @click.prevent="edit"
+      >
+        Edit
+      </v-btn>
+      <v-btn
+        outline
         :loading="buttonLoading"
         color="red"
         @click.prevent="destroy"
@@ -56,6 +63,9 @@ export default {
           })
           .finally(() => { this.buttonLoading = false })
       }
+    },
+    edit () {
+      this.$router.push({ name: 'ages.edit', params: { routeKey: this.routeKey } })
     }
   }
 }

@@ -53,7 +53,7 @@
           multiple
           validate-on-blur
           clearable
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.array]"
           :error-messages="errors.categories"
           item-value="value"
           label="Categories"
@@ -78,7 +78,7 @@
           multiple
           validate-on-blur
           clearable
-          :rules="[rules.required]"
+          :rules="[rules.required, rules.array]"
           :error-messages="errors.ages"
           item-value="value"
           label="Ages"
@@ -163,7 +163,8 @@ export default {
       valid: false,
       buttonLoading: false,
       rules: {
-        required: v => !!v || 'Field is required'
+        required: v => !!v || 'Field is required',
+        array: v => !!v.length || 'Field is empty'
       }
     }
   },
