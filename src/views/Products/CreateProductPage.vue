@@ -35,6 +35,14 @@
             :value="gender.value"
           />
         </v-radio-group>
+        <v-text-field
+          v-model="form.price"
+          label="Price"
+          validate-on-blur
+          :error-messages="errors.price"
+          type="number"
+          :rules="[rules.required]"
+        />
         <v-autocomplete
           v-model="form.brand_id"
           :items="brands"
@@ -50,7 +58,7 @@
           multiple
           validate-on-blur
           clearable
-          :rules="[rules.required, rules.rules.array]"
+          :rules="[rules.required, rules.array]"
           :error-messages="errors.categories"
           item-value="value"
           label="Categories"
@@ -136,6 +144,7 @@ export default {
         slug: '',
         name: '',
         description: '',
+        price: '',
         gender: '',
         brand_id: 0,
         categories: null,
@@ -156,7 +165,7 @@ export default {
       buttonLoading: false,
       rules: {
         required: v => !!v || 'Field is required',
-        array: v => !!v.length || 'Field is empty'
+        array: v => (!!v && !!v.length) || 'Field is empty'
       }
     }
   },
@@ -205,6 +214,7 @@ export default {
           brand_id: this.form.brand_id,
           categories: this.form.categories,
           ages: this.form.ages,
+          price: this.form.price,
           images: this.form.images
         }, this.form.slug)
           .then(() => {

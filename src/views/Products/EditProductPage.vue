@@ -38,6 +38,14 @@
             :value="gender.value"
           />
         </v-radio-group>
+        <v-text-field
+          v-model="form.price"
+          label="Price"
+          validate-on-blur
+          :error-messages="errors.price"
+          type="number"
+          :rules="[rules.required]"
+        />
         <v-autocomplete
           v-model="form.brand_id"
           :items="brands"
@@ -145,6 +153,7 @@ export default {
         name: '',
         description: '',
         gender: '',
+        price: '',
         brand_id: 0,
         categories: null,
         ages: null,
@@ -164,7 +173,7 @@ export default {
       buttonLoading: false,
       rules: {
         required: v => !!v || 'Field is required',
-        array: v => !!v.length || 'Field is empty'
+        array: v => (!!v && !!v.length) || 'Field is empty'
       }
     }
   },
@@ -184,6 +193,7 @@ export default {
       this.form.description = product.description
       this.form.brand_id = String(product.brand)
       this.form.gender = product.gender
+      this.form.price = product.price
       this.form.categories = Object.keys(product.categories)
       this.form.ages = Object.keys(product.ages)
     } catch (err) {
@@ -206,6 +216,7 @@ export default {
               dataURL: item.dataURL
             }
             this.$refs.dropzone.manuallyAddFile(file, file.dataURL)
+            this.form.images.push(item.id)
           })
         })
     },
@@ -233,6 +244,7 @@ export default {
           gender: this.form.gender,
           brand_id: this.form.brand_id,
           categories: this.form.categories,
+          price: this.form.price,
           ages: this.form.ages,
           images: this.form.images
         })

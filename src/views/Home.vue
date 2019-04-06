@@ -16,7 +16,7 @@
       />
     </v-layout>
     <v-layout
-      v-else
+      v-else-if="orders && orders.length"
       row
       wrap
     >
@@ -33,8 +33,20 @@
         />
       </v-flex>
     </v-layout>
+    <v-layout
+      v-else
+      class="justify-center align-center fill-height"
+    >
+      <v-card
+        class="rounded-card ma-5"
+      >
+        <v-card-title class="title font-weight-regular">
+          There is no new orders yet!
+        </v-card-title>
+      </v-card>
+    </v-layout>
     <pagination
-      v-if="!loading && meta.current_page"
+      v-if="!loading && meta && meta.total"
       :meta="meta"
       @pagination:switched="switchPage"
     />

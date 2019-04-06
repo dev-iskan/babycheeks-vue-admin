@@ -15,7 +15,10 @@
           <span class="green--text">brand</span>: <span>{{ product.brand }}</span>
         </div>
         <div class="subheading">
-          <span class="green--text">gender</span>: <span>{{ product.gender }}</span>
+          <span class="green--text">price</span>: <span>{{ product.formatted_price }}</span>
+        </div>
+        <div class="subheading">
+          <span class="green--text">gender</span>: <span>{{ product.formatted_gender }}</span>
         </div>
         <div class="subheading">
           <span class="green--text">categories</span>:
