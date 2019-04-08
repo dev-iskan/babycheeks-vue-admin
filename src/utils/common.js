@@ -2,7 +2,7 @@ import { TokenService } from '@/services/storage.service'
 
 export const dropzone = (
   maxFiles,
-  url = `${process.env.VUE_APP_ROOT_API}admin/media/store`,
+  url = `${process.env.VUE_APP_PROD_ROOT_API}admin/media/store`,
   acceptedFiles = 'image/*',
   paramName = 'image',
   addRemoveLinks = true,

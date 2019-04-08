@@ -173,6 +173,7 @@ export default {
     const product = await crud.create('admin/products')
     this.form.id = product.id
     this.form.slug = product.slug
+    this.form.gender = product.gender
 
     this.categories = await crud.pluckData('admin/categories', {
       pluck: true

@@ -35,7 +35,7 @@
           id="dropzone"
           ref="dropzone"
           class="my-2"
-          :options="dropzone.options"
+          :options="dropzone"
           @vdropzone-sending="sending"
           @vdropzone-removed-file="removing"
           @vdropzone-success="success"
