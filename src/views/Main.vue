@@ -56,7 +56,7 @@
       </v-toolbar-items>
     </v-toolbar>
 
-    <v-content class="deep-purple lighten-5">
+    <v-content>
       <v-container>
         <v-layout>
           <v-flex

@@ -75,7 +75,7 @@
                   icon
                   flat
                   small
-                  color="red"
+                  color="secondary"
                   @click.stop.prevent="destroy(props.item[routeKey])"
                 >
                   <v-icon

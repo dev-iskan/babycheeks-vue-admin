@@ -11,7 +11,7 @@
           fill-height
           class=" d-flex subheading table"
         >
-          <div class="d-flex width-50">
+          <div class="d-flex width-50 text-uppercase">
             {{ key }}
           </div>
           <div class="d-flex width-50">
@@ -81,12 +81,4 @@ export default {
 </script>
 
 <style scoped>
-.table{
-  text-transform: uppercase;
-  border-bottom: 1px solid rgb(185, 185, 185);
-  padding: 5px 10px;
-}
-.width-50{
-  width: 50%;
-}
 </style>

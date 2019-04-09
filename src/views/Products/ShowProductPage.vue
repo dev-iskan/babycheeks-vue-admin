@@ -70,7 +70,7 @@
       </v-btn>
       <v-btn
         outline
-        color="blue"
+        color="primary"
         @click.prevent="edit"
       >
         Edit
@@ -78,7 +78,7 @@
       <v-btn
         outline
         :loading="buttonLoading"
-        color="red"
+        color="secondary"
         @click.prevent="destroy"
       >
         Delete
@@ -134,15 +134,5 @@ export default {
 </script>
 
 <style scoped>
-.table{
-  border-bottom: 1px solid rgb(185, 185, 185);
-  padding: 5px 10px;
-}
-.width-50{
-  max-width: 50%;
-  width: 100%;
-}
-.text-uppercase{
-  text-transform: uppercase;
-}
+
 </style>

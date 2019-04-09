@@ -60,7 +60,7 @@
       <v-spacer />
       <v-btn
         outline
-        color="blue"
+        color="primary"
         @click.prevent="edit"
       >
         Edit
@@ -68,7 +68,7 @@
       <v-btn
         outline
         :loading="buttonLoading"
-        color="red"
+        color="secondary"
         @click.prevent="destroy"
       >
         Delete
@@ -117,48 +117,5 @@ export default {
 </script>
 
 <style scoped>
-.category__body{
-  display: flex;
-  align-items: center;
-}
-.body__product-description{
-  padding: 0 30px;
-  max-width: 60%;
-  width: 100%;
-}
-.body__product-image{
 
-}
-.text-uppercase{
-  text-transform: uppercase;
-}
-.table{
-  border-bottom: 1px solid rgb(185, 185, 185);
-  padding: 5px 10px;
-}
-.width-50{
-  max-width: 50%;
-  width: 100%;
-}
-.width-60{
-  max-width: 60%;
-}
-@media(max-width: 960px) {
-  .category__body{
-  display: flex;
-  align-items: stretch;
-  flex-flow: column nowrap;
-}
-  .body__product-description{
-  padding: 0 30px;
-  max-width: 100%;
-}
-
-.body__product-image{
-  order: 1;
-}
-.body__product-description{
-  order: 2;
-}
-}
 </style>

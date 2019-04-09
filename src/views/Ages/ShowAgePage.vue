@@ -32,7 +32,7 @@
       <v-btn
         outline
         :loading="buttonLoading"
-        color="red"
+        color="secondary"
         @click.prevent="destroy"
       >
         Delete
