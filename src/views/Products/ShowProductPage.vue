@@ -6,6 +6,7 @@
           <v-carousel
             max="500"
             height="400"
+            style="background-size: contain;"
           >
             <v-carousel-item
               v-for="image in product.images"
