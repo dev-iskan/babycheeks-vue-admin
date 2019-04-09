@@ -47,7 +47,9 @@
 .width-60 {
   max-width: 60%;
 }
-
+.v-responsive .v-image__image--cover{
+  background-size: contain;
+}
 
 @media(max-width: 960px) {
   .category__body {
