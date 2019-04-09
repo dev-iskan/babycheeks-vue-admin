@@ -5,9 +5,18 @@
         <div
           v-for="key in Object.keys(brand)"
           :key="key"
-          class="subheading"
+          align-center
+          justify-space-between
+          row
+          fill-height
+          class=" d-flex subheading table"
         >
-          <span>{{ key }}</span>: <span>{{ brand[key] }}</span>
+          <div class="d-flex width-50">
+            {{ key }}
+          </div>
+          <div class="d-flex width-50">
+            {{ brand[key] }}
+          </div>
         </div>
       </template>
     </v-card-text>
@@ -72,5 +81,12 @@ export default {
 </script>
 
 <style scoped>
-
+.table{
+  text-transform: uppercase;
+  border-bottom: 1px solid rgb(185, 185, 185);
+  padding: 5px 10px;
+}
+.width-50{
+  width: 50%;
+}
 </style>

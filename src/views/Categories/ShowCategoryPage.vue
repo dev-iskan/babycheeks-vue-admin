@@ -1,28 +1,59 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <v-card-text>
-      <template v-if="Object.keys(category).length">
-        <div class="subheading">
-          <span>id</span>: <span>{{ category.id }}</span>
+    <v-card-text class="category__body">
+      <template
+        v-if="Object.keys(category).length"
+      >
+        <div class="body__product-description">
+          <div class="subheading d-flex table">
+            <div class="d-flex width-50 text-uppercase">
+              id
+            </div>
+            <div class="d-flex">
+              {{ category.id }}
+            </div>
+          </div>
+          <div class="subheading d-flex table">
+            <div class="d-flex width-50 text-uppercase">
+              name
+            </div> <div class="d-flex">
+              {{ category.name }}
+            </div>
+          </div>
+          <div class="subheading d-flex table">
+            <div class="d-flex width-50 text-uppercase">
+              description
+            </div>
+
+            <div
+              class="d-flex width-50 body-2"
+              v-html="category.description"
+            />
+          </div>
+          <div class="subheading d-flex table">
+            <div class="d-flex width-50 text-uppercase">
+              parent
+            </div> <div class="d-flex width-50">
+              {{ category.parent }}
+            </div>
+          </div>
+          <div class="subheading d-flex table">
+            <div class="d-flex width-50 text-uppercase">
+              created at
+            </div> <div class="d-flex width-50">
+              {{ category.created_at }}
+            </div>
+          </div>
         </div>
-        <div class="subheading">
-          <span>name</span>: <span>{{ category.name }}</span>
-        </div>
-        <div class="subheading">
-          <span>description</span>: <div v-html="category.description" />
-        </div>
-        <div class="subheading">
-          <span>parent</span>: <span>{{ category.parent }}</span>
-        </div>
-        <div class="subheading">
-          <span>created at</span>: <span>{{ category.created_at }}</span>
-        </div>
-        <template v-if="category.image">
-          <v-img
-            :src="category.image"
-            max-width="500"
-          />
-        </template>
+      </template>
+      <template
+        v-if="category.image"
+        class="body__product-image"
+      >
+        <v-img
+          :src="category.image"
+          height="200"
+        />
       </template>
     </v-card-text>
     <v-card-actions class="pa-3">
@@ -86,5 +117,48 @@ export default {
 </script>
 
 <style scoped>
+.category__body{
+  display: flex;
+  align-items: center;
+}
+.body__product-description{
+  padding: 0 30px;
+  max-width: 60%;
+  width: 100%;
+}
+.body__product-image{
 
+}
+.text-uppercase{
+  text-transform: uppercase;
+}
+.table{
+  border-bottom: 1px solid rgb(185, 185, 185);
+  padding: 5px 10px;
+}
+.width-50{
+  max-width: 50%;
+  width: 100%;
+}
+.width-60{
+  max-width: 60%;
+}
+@media(max-width: 960px) {
+  .category__body{
+  display: flex;
+  align-items: stretch;
+  flex-flow: column nowrap;
+}
+  .body__product-description{
+  padding: 0 30px;
+  max-width: 100%;
+}
+
+.body__product-image{
+  order: 1;
+}
+.body__product-description{
+  order: 2;
+}
+}
 </style>

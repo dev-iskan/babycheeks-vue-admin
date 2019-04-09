@@ -2,49 +2,10 @@
   <v-card class="rounded-card elevation-2">
     <v-card-text>
       <template v-if="Object.keys(product).length">
-        <div class="subheading">
-          <span class="green--text">id</span>: <span>{{ product.id }}</span>
-        </div>
-        <div class="subheading">
-          <span class="green--text">name</span>: <span>{{ product.name }}</span>
-        </div>
-        <div class="subheading">
-          <span class="green--text">description</span>: <div v-html="product.description" />
-        </div>
-        <div class="subheading">
-          <span class="green--text">brand</span>: <span>{{ product.brand }}</span>
-        </div>
-        <div class="subheading">
-          <span class="green--text">price</span>: <span>{{ product.formatted_price }}</span>
-        </div>
-        <div class="subheading">
-          <span class="green--text">gender</span>: <span>{{ product.formatted_gender }}</span>
-        </div>
-        <div class="subheading">
-          <span class="green--text">categories</span>:
-          <div
-            v-for="key in Object.keys(product.categories)"
-            :key="key"
-          >
-            <span>{{ product.categories[key] }}</span>
-          </div>
-        </div>
-        <div class="subheading">
-          <span class="green--text">ages</span>:
-          <div
-            v-for="key in Object.keys(product.ages)"
-            :key="key"
-          >
-            <span>{{ product.ages[key] }}</span>
-          </div>
-        </div>
-        <div class="subheading">
-          <span class="green--text">created at</span>: <span>{{ product.created_at }}</span>
-        </div>
         <template v-if="product.images.length">
-          <span class="green--text">Images</span>
           <v-carousel
             max="500"
+            height="400"
           >
             <v-carousel-item
               v-for="image in product.images"
@@ -53,6 +14,45 @@
             />
           </v-carousel>
         </template>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">id</span><span>{{ product.id }}</span>
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">name</span> <span>{{ product.name }}</span>
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">description</span> <div v-html="product.description" />
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">brand</span> <span>{{ product.brand }}</span>
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">price</span> <span>{{ product.formatted_price }}</span>
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">gender</span> <span>{{ product.formatted_gender }}</span>
+        </div>
+        <div class="subheading  d-flex table">
+          <span class="width-50 text-uppercase">categories</span>
+          <div
+            v-for="key in Object.keys(product.categories)"
+            :key="key"
+          >
+            <span>{{ product.categories[key] }}</span>
+          </div>
+        </div>
+        <div class="subheading d-flex table">
+          <span class="width-50 text-uppercase">ages</span>
+          <div
+            v-for="key in Object.keys(product.ages)"
+            :key="key"
+          >
+            <span>{{ product.ages[key] }}</span>
+          </div>
+        </div>
+        <div class="subheading d-flex table">
+          <span class="width-50 text-uppercase">created at</span> <span>{{ product.created_at }}</span>
+        </div>
       </template>
     </v-card-text>
     <v-card-actions class="pa-3">
@@ -134,5 +134,15 @@ export default {
 </script>
 
 <style scoped>
-
+.table{
+  border-bottom: 1px solid rgb(185, 185, 185);
+  padding: 5px 10px;
+}
+.width-50{
+  max-width: 50%;
+  width: 100%;
+}
+.text-uppercase{
+  text-transform: uppercase;
+}
 </style>
