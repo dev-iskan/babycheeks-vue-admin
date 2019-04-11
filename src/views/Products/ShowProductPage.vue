@@ -66,7 +66,7 @@
         <v-icon left>
           send
         </v-icon>
-        Отправить в чат
+        Отправить в канал
       </v-btn>
       <v-btn
         outline

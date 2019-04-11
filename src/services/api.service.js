@@ -70,7 +70,7 @@ const ApiService = {
 
     this._request = axios.interceptors.request.use(config => {
       // clear validation errors
-      store.dispatch('validation/clearErrors')
+      if (!store.getters['validation/isEmpty']) store.dispatch('validation/clearErrors')
       return config
     })
   },

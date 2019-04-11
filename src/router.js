@@ -136,7 +136,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // clear validation errors
-  store.dispatch('validation/clearErrors')
+  if (!store.getters['validation/isEmpty']) store.dispatch('validation/clearErrors')
 
   // check if auth
   const isPublic = to.matched.some(record => record.meta.public)

@@ -9,7 +9,7 @@ import store from './store'
 import './registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import validationMixin from './plugins/mixins/validation'
+import validationMixin from './mixins/validation'
 import Editor from '@tinymce/tinymce-vue'
 import vue2Dropzone from 'vue2-dropzone'
 import './assets/vue2Dropzone.min.css'
@@ -18,7 +18,6 @@ import CardTitle from '@/components/CardTitle'
 Vue.component('VueDropzone', vue2Dropzone)
 Vue.component('Editor', Editor)
 Vue.component('CardTitle', CardTitle)
-
 Vue.config.productionTip = false
 Vue.mixin(validationMixin)
 

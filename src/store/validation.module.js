@@ -3,7 +3,8 @@ const state = () => ({
 })
 
 const getters = {
-  errors: state => state.errors
+  errors: state => state.errors,
+  isEmpty: state => Object.keys(state.errors).length === 0
 }
 
 const mutations = {
