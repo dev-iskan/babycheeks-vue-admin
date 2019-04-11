@@ -5,12 +5,12 @@
       v-model="valid"
       @submit.prevent="submit"
     >
-      <card-title title="Create new brand" />
+      <card-title title="Создание нового бренда" />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.name"
-          label="Name"
+          label="Название"
           validate-on-blur
           :error-messages="errors.name"
           type="text"
@@ -25,7 +25,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Create
+          Создать
         </v-btn>
       </v-card-actions>
     </v-form>

@@ -21,14 +21,14 @@
                 @submit.prevent="submit"
               >
                 <v-card-title class="justify-center pt-4">
-                  <span class="headline text-uppercase">Sign In</span>
+                  <span class="headline text-uppercase">Авторизация</span>
                 </v-card-title>
                 <v-card-text>
                   <v-text-field
                     ref="email"
                     v-model="form.email"
                     :error-messages="errors.email"
-                    label="E-mail"
+                    label="Почта"
                     prepend-icon="account_circle"
                     validate-on-blur
                     type="text"
@@ -36,7 +36,7 @@
                   />
                   <v-text-field
                     v-model="form.password"
-                    label="Password"
+                    label="Пароль"
                     validate-on-blur
                     prepend-icon="vpn_key"
                     type="password"
@@ -51,7 +51,7 @@
                     type="submit"
                     :loading="buttonLoading"
                   >
-                    Submit
+                    Войти
                   </v-btn>
                 </v-card-actions>
               </v-form>

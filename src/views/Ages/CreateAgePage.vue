@@ -5,12 +5,12 @@
       v-model="valid"
       @submit.prevent="submit"
     >
-      <card-title title="Create new age" />
+      <card-title title="Создание нового возраста" />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.age"
-          label="Age"
+          label="Возраст"
           validate-on-blur
           :error-messages="errors.age"
           type="text"
@@ -25,7 +25,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Create
+          Создать
         </v-btn>
       </v-card-actions>
     </v-form>

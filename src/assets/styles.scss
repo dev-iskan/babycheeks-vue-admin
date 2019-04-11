@@ -25,13 +25,9 @@
 }
 
 .body__product-description {
-  padding: 0 30px;
   max-width: 60%;
   width: 100%;
 }
-
-.body__product-image {}
-
 
 
 .table {
@@ -59,15 +55,11 @@
   }
 
   .body__product-description {
-    padding: 0 30px;
     max-width: 100%;
+    order: 2;
   }
 
   .body__product-image {
     order: 1;
-  }
-
-  .body__product-description {
-    order: 2;
   }
 }

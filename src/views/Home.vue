@@ -41,7 +41,7 @@
         class="rounded-card ma-5"
       >
         <v-card-title class="title font-weight-regular">
-          There is no new orders yet!
+          Новых заказов еще нет!
         </v-card-title>
       </v-card>
     </v-layout>

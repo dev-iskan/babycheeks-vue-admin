@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <card-title title="Brands Table" />
+    <card-title title="Таблица брендов" />
     <v-divider />
     <v-card-text>
       <data-table endpoint="admin/brands" />

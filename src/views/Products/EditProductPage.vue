@@ -7,13 +7,13 @@
     >
       <card-title
         v-if="routeKey"
-        :title="'Edit product # '+ routeKey"
+        :title="'Изменение продукта # '+ routeKey"
       />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.name"
-          label="Name"
+          label="Название"
           validate-on-blur
           :error-messages="errors.name"
           type="text"
@@ -21,7 +21,7 @@
         />
         <editor
           v-model="form.description"
-          api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
+          :api-key="apiKey"
           :init="tinymce"
         />
         <v-radio-group
@@ -51,7 +51,7 @@
           :items="brands"
           item-text="text"
           item-value="value"
-          label="Brand"
+          label="Бренд"
           clearable
         />
         <v-autocomplete
@@ -64,7 +64,7 @@
           :rules="[rules.required, rules.array]"
           :error-messages="errors.categories"
           item-value="value"
-          label="Categories"
+          label="Категории"
         >
           <template v-slot:selection="data">
             <v-chip
@@ -89,7 +89,7 @@
           :rules="[rules.required, rules.array]"
           :error-messages="errors.ages"
           item-value="value"
-          label="Ages"
+          label="Возрасты"
         >
           <template v-slot:selection="data">
             <v-chip
@@ -124,7 +124,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Update
+          Изменить
         </v-btn>
       </v-card-actions>
     </v-form>
@@ -136,6 +136,7 @@ import CardTitle from '@/components/CardTitle'
 import crud from '@/services/crud.service'
 import api from '@/services/api.service'
 import { dropzone, tinymce } from '@/utils/common'
+import { genders, apiKey, rules } from '@/utils/form'
 export default {
   components: {
     CardTitle
@@ -159,11 +160,8 @@ export default {
         ages: null,
         images: []
       },
-      genders: [
-        { value: 'm', text: 'Male' },
-        { value: 'f', text: 'Female' },
-        { value: 'u', text: 'Unisex' }
-      ],
+      genders,
+      apiKey,
       dropzone: dropzone(5),
       tinymce,
       categories: [],
@@ -171,10 +169,7 @@ export default {
       brands: [],
       valid: false,
       buttonLoading: false,
-      rules: {
-        required: v => !!v || 'Field is required',
-        array: v => (!!v && !!v.length) || 'Field is empty'
-      }
+      rules
     }
   },
   async created () {

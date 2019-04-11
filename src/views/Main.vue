@@ -50,7 +50,7 @@
             </v-icon>
           </template>
           <template v-else>
-            Logout
+            Выйти
           </template>
         </v-btn>
       </v-toolbar-items>
@@ -86,28 +86,28 @@ export default {
         {
           name: 'home',
           icon: 'home',
-          title: 'Home'
+          title: 'Главная'
         },
         {
           name: 'ages.index',
           icon: 'child_friendly',
-          title: 'Ages'
+          title: 'Возрасты'
         },
         {
           name: 'brands.index',
           icon: 'label',
-          title: 'Brands'
+          title: 'Бренды'
         },
         {
           name: 'categories.index',
           icon: 'storage',
-          title: 'Categories'
+          title: 'Категории'
         },
 
         {
           name: 'products.index',
           icon: 'business_center',
-          title: 'Products'
+          title: 'Продукты'
         }
       ]
     }

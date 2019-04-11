@@ -17,7 +17,7 @@
         v-else
         class="subheading font-weight-light"
       >
-        No product
+        Нету продукта
       </div>
 
       <div class="subheading font-weight-light">

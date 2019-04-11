@@ -27,7 +27,7 @@
         color="blue"
         @click.prevent="edit"
       >
-        Edit
+        Изменить
       </v-btn>
       <v-btn
         outline
@@ -35,7 +35,7 @@
         color="red"
         @click.prevent="destroy"
       >
-        Delete
+        Удалить
       </v-btn>
     </v-card-actions>
   </v-card>

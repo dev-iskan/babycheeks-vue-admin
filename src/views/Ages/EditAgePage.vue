@@ -7,13 +7,13 @@
     >
       <card-title
         v-if="routeKey"
-        :title="'Edit age # '+ routeKey"
+        :title="'Изменение возраста # '+ routeKey"
       />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.age"
-          label="Age"
+          label="Возраст"
           validate-on-blur
           :error-messages="errors.age"
           type="text"
@@ -28,7 +28,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Update
+          Изменить
         </v-btn>
       </v-card-actions>
     </v-form>

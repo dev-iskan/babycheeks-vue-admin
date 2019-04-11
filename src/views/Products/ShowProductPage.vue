@@ -66,14 +66,14 @@
         <v-icon left>
           send
         </v-icon>
-        Send Telegram
+        Отправить в чат
       </v-btn>
       <v-btn
         outline
         color="primary"
         @click.prevent="edit"
       >
-        Edit
+        Изменить
       </v-btn>
       <v-btn
         outline
@@ -81,7 +81,7 @@
         color="secondary"
         @click.prevent="destroy"
       >
-        Delete
+        Удалить
       </v-btn>
     </v-card-actions>
   </v-card>

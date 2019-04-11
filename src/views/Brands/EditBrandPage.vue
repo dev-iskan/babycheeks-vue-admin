@@ -7,13 +7,13 @@
     >
       <card-title
         v-if="routeKey"
-        :title="'Edit brand # '+ routeKey"
+        :title="'Изменение бренда # '+ routeKey"
       />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.name"
-          label="Name"
+          label="Название"
           validate-on-blur
           :error-messages="errors.name"
           type="text"
@@ -28,7 +28,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Update
+          Изменить
         </v-btn>
       </v-card-actions>
     </v-form>

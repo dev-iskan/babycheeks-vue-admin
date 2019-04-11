@@ -7,13 +7,13 @@
     >
       <card-title
         v-if="routeKey"
-        :title="'Edit category # '+ routeKey"
+        :title="'Изменение категории # '+ routeKey"
       />
       <v-divider />
       <v-card-text>
         <v-text-field
           v-model="form.name"
-          label="Name"
+          label="Название"
           validate-on-blur
           :error-messages="errors.name"
           type="text"
@@ -21,7 +21,7 @@
         />
         <editor
           v-model="form.description"
-          api-key="lw4jzx0h6ifi7igb38t24u62eiupzkrpttd4f9dhkizquji4"
+          :api-key="apiKey"
           :init="tinymce"
           class="my-2"
         />
@@ -32,7 +32,7 @@
           item-text="text"
           clearable
           item-value="value"
-          label="Parent Category"
+          label="Родительская категория"
         />
         <vue-dropzone
           id="dropzone"
@@ -54,7 +54,7 @@
           :loading="buttonLoading"
           color="primary"
         >
-          Update
+          Изменить
         </v-btn>
       </v-card-actions>
     </v-form>
@@ -66,6 +66,7 @@ import CardTitle from '@/components/CardTitle'
 import crud from '@/services/crud.service'
 import api from '@/services/api.service'
 import { dropzone, tinymce } from '@/utils/common'
+import { apiKey, rules } from '@/utils/form'
 
 export default {
   components: {
@@ -91,9 +92,8 @@ export default {
       categories: [],
       valid: false,
       buttonLoading: false,
-      rules: {
-        required: v => !!v || 'Field is required'
-      }
+      rules,
+      apiKey
     }
   },
   async created () {

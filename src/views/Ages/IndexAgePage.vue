@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <card-title title="Ages Table" />
+    <card-title title="Таблица возрастов" />
     <v-divider />
     <v-card-text>
       <data-table endpoint="admin/ages" />

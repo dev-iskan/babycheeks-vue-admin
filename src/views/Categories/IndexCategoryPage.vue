@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-card elevation-2">
-    <card-title title="Categories Table" />
+    <card-title title="Таблица категорий" />
     <v-divider />
     <v-card-text>
       <data-table endpoint="admin/categories" />

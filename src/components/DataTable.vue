@@ -12,7 +12,7 @@
         :to="{name: `${table}.create`}"
         color="primary"
       >
-        Create
+        Создать
         <v-icon
           dark
           right
@@ -29,7 +29,7 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search"
+        label="Поиск"
         single-line
         hide-details
       />
