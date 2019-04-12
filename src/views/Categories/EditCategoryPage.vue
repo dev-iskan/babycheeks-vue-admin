@@ -1,64 +1,69 @@
 <template>
-  <v-card class="rounded-card elevation-2">
-    <v-form
-      ref="form"
-      v-model="valid"
-      @submit.prevent="submit"
-    >
-      <card-title
-        v-if="routeKey"
-        :title="'Изменение категории # '+ routeKey"
-      />
-      <v-divider />
-      <v-card-text>
-        <v-text-field
-          v-model="form.name"
-          label="Название"
-          validate-on-blur
-          :error-messages="errors.name"
-          type="text"
-          :rules="[rules.required]"
+  <v-flex
+    xs12
+    d-flex
+  >
+    <v-card class="rounded-card elevation-2">
+      <v-form
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submit"
+      >
+        <card-title
+          v-if="routeKey"
+          :title="'Изменение категории # '+ routeKey"
         />
-        <editor
-          v-model="form.description"
-          :api-key="apiKey"
-          :init="tinymce"
-          class="my-2"
-        />
+        <v-divider />
+        <v-card-text>
+          <v-text-field
+            v-model="form.name"
+            label="Название"
+            validate-on-blur
+            :error-messages="errors.name"
+            type="text"
+            :rules="[rules.required]"
+          />
+          <editor
+            v-model="form.description"
+            :api-key="apiKey"
+            :init="tinymce"
+            class="my-2"
+          />
 
-        <v-autocomplete
-          v-model="form.parent_id"
-          :items="categories"
-          item-text="text"
-          clearable
-          item-value="value"
-          label="Родительская категория"
-        />
-        <vue-dropzone
-          id="dropzone"
-          ref="dropzone"
-          class="my-2"
-          :options="dropzone"
-          @vdropzone-sending="sending"
-          @vdropzone-removed-file="removing"
-          @vdropzone-success="success"
-          @vdropzone-mounted="mounted"
-        />
-      </v-card-text>
+          <v-autocomplete
+            v-model="form.parent_id"
+            :items="categories"
+            item-text="text"
+            clearable
+            item-value="value"
+            label="Родительская категория"
+          />
+          <vue-dropzone
+            id="dropzone"
+            ref="dropzone"
+            class="my-2"
+            :options="dropzone"
+            @vdropzone-sending="sending"
+            @vdropzone-removed-file="removing"
+            @vdropzone-success="success"
+            @vdropzone-mounted="mounted"
+          />
+        </v-card-text>
 
-      <v-card-actions class="pa-3">
-        <v-spacer />
-        <v-btn
-          outline
-          type="submit"
-          :loading="buttonLoading"
-          color="primary"
-        >
-          Изменить
-        </v-btn>
-      </v-card-actions>
-    </v-form>
-  </v-card>
+        <v-card-actions class="pa-3">
+          <v-spacer />
+          <v-btn
+            outline
+            type="submit"
+            :loading="buttonLoading"
+            color="primary"
+          >
+            Изменить
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
@@ -97,16 +102,18 @@ export default {
     }
   },
   async created () {
-    this.categories = await crud.pluckData('admin/categories', {
-      parent: true
-    })
-
     try {
+      this.setPageLoading()
+      this.categories = await crud.pluckData('admin/categories', {
+        parent: true
+      })
       const category = await crud.fetchSingle('admin/categories', this.routeKey)
       this.form.name = category.name
       this.form.description = category.description
       this.form.parent_id = String(category.parent)
+      this.setPageReady()
     } catch (e) {
+      this.setPageReady()
       if (e.response.status === 404) { this.$router.push({ name: 'categories.index' }) }
     }
   },

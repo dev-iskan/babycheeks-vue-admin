@@ -1,134 +1,139 @@
 <template>
-  <v-card class="rounded-card elevation-2">
-    <v-form
-      ref="form"
-      v-model="valid"
-      @submit.prevent="submit"
-    >
-      <card-title
-        v-if="routeKey"
-        :title="'Изменение продукта # '+ routeKey"
-      />
-      <v-divider />
-      <v-card-text>
-        <v-text-field
-          v-model="form.name"
-          label="Название"
-          validate-on-blur
-          :error-messages="errors.name"
-          type="text"
-          :rules="[rules.required]"
+  <v-flex
+    xs12
+    d-flex
+  >
+    <v-card class="rounded-card elevation-2">
+      <v-form
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submit"
+      >
+        <card-title
+          v-if="routeKey"
+          :title="'Изменение продукта # '+ routeKey"
         />
-        <editor
-          v-model="form.description"
-          :api-key="apiKey"
-          :init="tinymce"
-        />
-        <v-radio-group
-          v-model="form.gender"
-          validate-on-blur
-          :rules="[rules.required]"
-          :error-messages="errors.gender"
-        >
-          <v-radio
-            v-for="gender in genders"
-            :key="gender.value"
-            color="primary"
-            :label="gender.text"
-            :value="gender.value"
+        <v-divider />
+        <v-card-text>
+          <v-text-field
+            v-model="form.name"
+            label="Название"
+            validate-on-blur
+            :error-messages="errors.name"
+            type="text"
+            :rules="[rules.required]"
           />
-        </v-radio-group>
-        <v-text-field
-          v-model="form.price"
-          label="Price"
-          validate-on-blur
-          :error-messages="errors.price"
-          type="number"
-          :rules="[rules.required]"
-        />
-        <v-autocomplete
-          v-model="form.brand_id"
-          :items="brands"
-          item-text="text"
-          item-value="value"
-          label="Бренд"
-          clearable
-        />
-        <v-autocomplete
-          v-model="form.categories"
-          :items="categories"
-          item-text="text"
-          multiple
-          validate-on-blur
-          clearable
-          :rules="[rules.required, rules.array]"
-          :error-messages="errors.categories"
-          item-value="value"
-          label="Категории"
-        >
-          <template v-slot:selection="data">
-            <v-chip
-              :selected="data.selected"
-              close
-              outline
+          <editor
+            v-model="form.description"
+            :api-key="apiKey"
+            :init="tinymce"
+          />
+          <v-radio-group
+            v-model="form.gender"
+            validate-on-blur
+            :rules="[rules.required]"
+            :error-messages="errors.gender"
+          >
+            <v-radio
+              v-for="gender in genders"
+              :key="gender.value"
               color="primary"
-              class="chip--select-multi"
-              @input="removeChip(data.item, 'categories')"
-            >
-              {{ data.item.text }}
-            </v-chip>
-          </template>
-        </v-autocomplete>
-        <v-autocomplete
-          v-model="form.ages"
-          :items="ages"
-          item-text="text"
-          multiple
-          validate-on-blur
-          clearable
-          :rules="[rules.required, rules.array]"
-          :error-messages="errors.ages"
-          item-value="value"
-          label="Возрасты"
-        >
-          <template v-slot:selection="data">
-            <v-chip
-              :selected="data.selected"
-              close
-              outline
-              color="secondary"
-              class="chip--select-multi"
-              @input="removeChip(data.item, 'ages')"
-            >
-              {{ data.item.text }}
-            </v-chip>
-          </template>
-        </v-autocomplete>
-        <vue-dropzone
-          id="dropzone"
-          ref="dropzone"
-          class="my-2"
-          :options="dropzone"
-          @vdropzone-sending="sending"
-          @vdropzone-removed-file="removing"
-          @vdropzone-success="success"
-          @vdropzone-mounted="mounted"
-        />
-      </v-card-text>
+              :label="gender.text"
+              :value="gender.value"
+            />
+          </v-radio-group>
+          <v-text-field
+            v-model="form.price"
+            label="Price"
+            validate-on-blur
+            :error-messages="errors.price"
+            type="number"
+            :rules="[rules.required]"
+          />
+          <v-autocomplete
+            v-model="form.brand_id"
+            :items="brands"
+            item-text="text"
+            item-value="value"
+            label="Бренд"
+            clearable
+          />
+          <v-autocomplete
+            v-model="form.categories"
+            :items="categories"
+            item-text="text"
+            multiple
+            validate-on-blur
+            clearable
+            :rules="[rules.required, rules.array]"
+            :error-messages="errors.categories"
+            item-value="value"
+            label="Категории"
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                :selected="data.selected"
+                close
+                outline
+                color="primary"
+                class="chip--select-multi"
+                @input="removeChip(data.item, 'categories')"
+              >
+                {{ data.item.text }}
+              </v-chip>
+            </template>
+          </v-autocomplete>
+          <v-autocomplete
+            v-model="form.ages"
+            :items="ages"
+            item-text="text"
+            multiple
+            validate-on-blur
+            clearable
+            :rules="[rules.required, rules.array]"
+            :error-messages="errors.ages"
+            item-value="value"
+            label="Возрасты"
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                :selected="data.selected"
+                close
+                outline
+                color="secondary"
+                class="chip--select-multi"
+                @input="removeChip(data.item, 'ages')"
+              >
+                {{ data.item.text }}
+              </v-chip>
+            </template>
+          </v-autocomplete>
+          <vue-dropzone
+            id="dropzone"
+            ref="dropzone"
+            class="my-2"
+            :options="dropzone"
+            @vdropzone-sending="sending"
+            @vdropzone-removed-file="removing"
+            @vdropzone-success="success"
+            @vdropzone-mounted="mounted"
+          />
+        </v-card-text>
 
-      <v-card-actions class="pa-3">
-        <v-spacer />
-        <v-btn
-          outline
-          type="submit"
-          :loading="buttonLoading"
-          color="primary"
-        >
-          Изменить
-        </v-btn>
-      </v-card-actions>
-    </v-form>
-  </v-card>
+        <v-card-actions class="pa-3">
+          <v-spacer />
+          <v-btn
+            outline
+            type="submit"
+            :loading="buttonLoading"
+            color="primary"
+          >
+            Изменить
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
@@ -173,17 +178,18 @@ export default {
     }
   },
   async created () {
-    this.categories = await crud.pluckData('admin/categories', {
-      pluck: true
-    })
-    this.brands = await crud.pluckData('admin/brands', {
-      pluck: true
-    })
-    this.ages = await crud.pluckData('admin/ages', {
-      pluck: true
-    })
-    const product = await crud.fetchSingle('admin/products', this.routeKey)
     try {
+      this.setPageLoading()
+      this.categories = await crud.pluckData('admin/categories', {
+        pluck: true
+      })
+      this.brands = await crud.pluckData('admin/brands', {
+        pluck: true
+      })
+      this.ages = await crud.pluckData('admin/ages', {
+        pluck: true
+      })
+      const product = await crud.fetchSingle('admin/products', this.routeKey)
       this.form.name = product.name
       this.form.description = product.description
       this.form.brand_id = String(product.brand)
@@ -191,7 +197,9 @@ export default {
       this.form.price = product.price
       this.form.categories = Object.keys(product.categories)
       this.form.ages = Object.keys(product.ages)
+      this.setPageReady()
     } catch (err) {
+      this.setPageReady()
       if (err.response.status === 404) { this.$router.push({ name: 'products.index' }) }
     }
   },

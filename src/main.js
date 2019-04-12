@@ -10,6 +10,7 @@ import './registerServiceWorker'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import validationMixin from './mixins/validation'
+import pageMixin from './mixins/page'
 import Editor from '@tinymce/tinymce-vue'
 import vue2Dropzone from 'vue2-dropzone'
 import './assets/vue2Dropzone.min.css'
@@ -20,6 +21,7 @@ Vue.component('Editor', Editor)
 Vue.component('CardTitle', CardTitle)
 Vue.config.productionTip = false
 Vue.mixin(validationMixin)
+Vue.mixin(pageMixin)
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_PROD_ROOT_API)

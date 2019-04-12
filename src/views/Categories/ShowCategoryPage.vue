@@ -1,81 +1,86 @@
 <template>
-  <v-card class="rounded-card elevation-2">
-    <v-card-text class="category__body">
-      <template
-        v-if="Object.keys(category).length"
-      >
-        <div class="body__product-description">
-          <div class="subheading d-flex table">
-            <div class="d-flex width-50 text-uppercase">
-              id
+  <v-flex
+    xs12
+    d-flex
+  >
+    <v-card class="rounded-card elevation-2">
+      <v-card-text class="category__body">
+        <template
+          v-if="Object.keys(category).length"
+        >
+          <div class="body__product-description">
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                id
+              </div>
+              <div class="d-flex">
+                {{ category.id }}
+              </div>
             </div>
-            <div class="d-flex">
-              {{ category.id }}
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                name
+              </div> <div class="d-flex">
+                {{ category.name }}
+              </div>
             </div>
-          </div>
-          <div class="subheading d-flex table">
-            <div class="d-flex width-50 text-uppercase">
-              name
-            </div> <div class="d-flex">
-              {{ category.name }}
-            </div>
-          </div>
-          <div class="subheading d-flex table">
-            <div class="d-flex width-50 text-uppercase">
-              description
-            </div>
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                description
+              </div>
 
-            <div
-              class="d-flex width-50 body-2"
-              v-html="category.description"
-            />
-          </div>
-          <div class="subheading d-flex table">
-            <div class="d-flex width-50 text-uppercase">
-              parent
-            </div> <div class="d-flex width-50">
-              {{ category.parent }}
+              <div
+                class="d-flex width-50 body-2"
+                v-html="category.description"
+              />
+            </div>
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                parent
+              </div> <div class="d-flex width-50">
+                {{ category.parent }}
+              </div>
+            </div>
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                created at
+              </div> <div class="d-flex width-50">
+                {{ category.created_at }}
+              </div>
             </div>
           </div>
-          <div class="subheading d-flex table">
-            <div class="d-flex width-50 text-uppercase">
-              created at
-            </div> <div class="d-flex width-50">
-              {{ category.created_at }}
-            </div>
-          </div>
-        </div>
-      </template>
-      <template
-        v-if="category.image"
-        class="body__product-image"
-      >
-        <v-img
-          :src="category.image"
-          :lazy-src="lazyImg"
-          height="200"
-        />
-      </template>
-    </v-card-text>
-    <v-card-actions class="pa-3">
-      <v-spacer />
-      <v-btn
-        outline
-        color="primary"
-        @click.prevent="edit"
-      >
-        Изменить
-      </v-btn>
-      <v-btn
-        outline
-        :loading="buttonLoading"
-        color="secondary"
-        @click.prevent="destroy"
-      >
-        Удалить
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+        </template>
+        <template
+          v-if="category.image"
+          class="body__product-image"
+        >
+          <v-img
+            :src="category.image"
+            :lazy-src="lazyImg"
+            height="200"
+          />
+        </template>
+      </v-card-text>
+      <v-card-actions class="pa-3">
+        <v-spacer />
+        <v-btn
+          outline
+          color="primary"
+          @click.prevent="edit"
+        >
+          Изменить
+        </v-btn>
+        <v-btn
+          outline
+          :loading="buttonLoading"
+          color="secondary"
+          @click.prevent="destroy"
+        >
+          Удалить
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
@@ -95,11 +100,13 @@ export default {
     }
   },
   created () {
+    this.setPageLoading()
     crud.fetchSingle('admin/categories', this.routeKey)
       .then(category => { this.category = category })
       .catch(err => {
         if (err.response.status === 404) { this.$router.push({ name: 'categories.index' }) }
       })
+      .finally(() => { this.setPageReady() })
   },
   methods: {
     destroy () {

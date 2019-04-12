@@ -1,60 +1,65 @@
 <template>
-  <v-card class="rounded-card elevation-2">
-    <v-form
-      ref="form"
-      v-model="valid"
-      @submit.prevent="submit"
-    >
-      <card-title title="Создание новой категории" />
-      <v-divider />
-      <v-card-text>
-        <v-text-field
-          v-model="form.name"
-          label="Название"
-          validate-on-blur
-          :error-messages="errors.name"
-          type="text"
-          :rules="[rules.required]"
-        />
-        <editor
-          v-model="form.description"
-          :api-key="apiKey"
-          :init="tinymce"
-          class="my-2"
-        />
+  <v-flex
+    xs12
+    d-flex
+  >
+    <v-card class="rounded-card elevation-2">
+      <v-form
+        ref="form"
+        v-model="valid"
+        @submit.prevent="submit"
+      >
+        <card-title title="Создание новой категории" />
+        <v-divider />
+        <v-card-text>
+          <v-text-field
+            v-model="form.name"
+            label="Название"
+            validate-on-blur
+            :error-messages="errors.name"
+            type="text"
+            :rules="[rules.required]"
+          />
+          <editor
+            v-model="form.description"
+            :api-key="apiKey"
+            :init="tinymce"
+            class="my-2"
+          />
 
-        <v-autocomplete
-          v-model="form.parent_id"
-          :items="categories"
-          item-text="text"
-          clearable
-          item-value="value"
-          label="Родительская категория"
-        />
-        <vue-dropzone
-          id="dropzone"
-          ref="dropzone"
-          class="my-2"
-          :options="dropzone"
-          @vdropzone-sending="sending"
-          @vdropzone-removed-file="removing"
-          @vdropzone-success="success"
-        />
-      </v-card-text>
+          <v-autocomplete
+            v-model="form.parent_id"
+            :items="categories"
+            item-text="text"
+            clearable
+            item-value="value"
+            label="Родительская категория"
+          />
+          <vue-dropzone
+            id="dropzone"
+            ref="dropzone"
+            class="my-2"
+            :options="dropzone"
+            @vdropzone-sending="sending"
+            @vdropzone-removed-file="removing"
+            @vdropzone-success="success"
+          />
+        </v-card-text>
 
-      <v-card-actions class="pa-3">
-        <v-spacer />
-        <v-btn
-          outline
-          type="submit"
-          :loading="buttonLoading"
-          color="primary"
-        >
-          Создать
-        </v-btn>
-      </v-card-actions>
-    </v-form>
-  </v-card>
+        <v-card-actions class="pa-3">
+          <v-spacer />
+          <v-btn
+            outline
+            type="submit"
+            :loading="buttonLoading"
+            color="primary"
+          >
+            Создать
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card>
+  </v-flex>
 </template>
 
 <script>
@@ -88,13 +93,20 @@ export default {
     }
   },
   async created () {
-    const category = await crud.create('admin/categories')
-    this.form.id = category.id
-    this.form.slug = category.slug
+    try {
+      this.setPageLoading()
+      const category = await crud.create('admin/categories')
+      this.form.id = category.id
+      this.form.slug = category.slug
 
-    this.categories = await crud.pluckData('admin/categories', {
-      parent: true
-    })
+      this.categories = await crud.pluckData('admin/categories', {
+        parent: true
+      })
+      this.setPageReady()
+    } catch (e) {
+      this.setPageReady()
+      throw e
+    }
   },
   methods: {
     sending (file, xhr, formData) {

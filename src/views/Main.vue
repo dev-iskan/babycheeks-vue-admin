@@ -58,13 +58,20 @@
 
     <v-content>
       <v-container>
-        <v-layout>
-          <v-flex
-            xs12
-            d-flex
-          >
-            <router-view />
-          </v-flex>
+        <v-layout
+          v-show="pageLoading"
+          justify-center
+          fill-height
+          allign-center
+        >
+          <v-progress-circular
+            indeterminate
+            size="100"
+            color="secondary"
+          />
+        </v-layout>
+        <v-layout v-show="!pageLoading">
+          <router-view />
         </v-layout>
       </v-container>
     </v-content>
