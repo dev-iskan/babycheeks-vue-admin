@@ -168,7 +168,7 @@ export default {
     },
 
     destroy (key) {
-      if (!confirm('Are you sure?')) return
+      if (!confirm('Вы уверены?')) return
       crud.destroy(`admin/${this.table}/${key}`)
         .then(() => {
           this.getRecords()

@@ -28,7 +28,7 @@
             <span class="width-50 text-uppercase">description</span> <div v-html="product.description" />
           </div>
           <div class="subheading  d-flex table">
-            <span class="width-50 text-uppercase">brand</span> <span>{{ product.brand }}</span>
+            <span class="width-50 text-uppercase">brand</span> <span>{{ product.brand_name }}</span>
           </div>
           <div class="subheading  d-flex table">
             <span class="width-50 text-uppercase">price</span> <span>{{ product.formatted_price }}</span>
@@ -124,7 +124,7 @@ export default {
         .finally(() => { this.telegramButtonLoading = false })
     },
     destroy () {
-      if (confirm('Are you sure?')) {
+      if (confirm('Вы уверены?')) {
         this.buttonLoading = true
         crud.destroy(`admin/products/${this.routeKey}`)
           .then(() => {

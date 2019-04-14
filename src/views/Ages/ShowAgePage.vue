@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     destroy () {
-      if (confirm('Are you sure?')) {
+      if (confirm('Вы уверены?')) {
         crud.destroy(`admin/ages/${this.routeKey}`)
           .then(() => {
             this.$router.push({ name: 'ages.index' })

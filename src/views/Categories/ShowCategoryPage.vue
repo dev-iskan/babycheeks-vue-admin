@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     destroy () {
-      if (confirm('Are you sure?')) {
+      if (confirm('Вы уверены?')) {
         crud.destroy(`admin/categories/${this.routeKey}`)
           .then(() => {
             this.$router.push({ name: 'categories.index' })

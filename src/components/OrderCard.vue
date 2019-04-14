@@ -3,7 +3,7 @@
     <v-card-text>
       <div
         v-if="order.product"
-        class="subheading"
+        class="subheading pb-2"
       >
         <router-link
 
@@ -15,11 +15,10 @@
       </div>
       <div
         v-else
-        class="subheading font-weight-light"
+        class="subheading font-weight-light pb-2"
       >
         Нету продукта
       </div>
-
       <div class="subheading font-weight-light">
         <v-icon
           flat
@@ -47,6 +46,7 @@
     </v-card-text>
     <v-card-actions>
       <v-btn
+        v-if="!order.finished"
         icon
         flat
         color="secondary"
@@ -54,6 +54,12 @@
       >
         <v-icon>done</v-icon>
       </v-btn>
+      <div
+        v-else
+        class="subheading px-2"
+      >
+        <span>Принят</span>
+      </div>
       <v-spacer />
       <v-btn
         icon
@@ -81,7 +87,7 @@ export default {
       this.$emit('update', this.order.id, bool)
     },
     remove () {
-      if (!confirm('Are you sure?')) return
+      if (!confirm('Вы уверены?')) return
       this.$emit('remove', this.order.id)
     }
   }
