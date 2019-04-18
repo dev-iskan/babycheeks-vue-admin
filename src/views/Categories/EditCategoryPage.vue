@@ -29,7 +29,10 @@
             :init="tinymce"
             class="my-2"
           />
-
+          <v-switch
+            v-model="form.primary"
+            label="Сделать категорию главной"
+          />
           <v-autocomplete
             v-model="form.parent_id"
             :items="categories"
@@ -89,6 +92,7 @@ export default {
       form: {
         name: '',
         description: '',
+        primary: false,
         parent_id: 0,
         image_id: null
       },
@@ -110,6 +114,7 @@ export default {
       const category = await crud.fetchSingle('admin/categories', this.routeKey)
       this.form.name = category.name
       this.form.description = category.description
+      this.form.primary = category.primary
       this.form.parent_id = String(category.parent)
       this.setPageReady()
     } catch (e) {
@@ -157,6 +162,7 @@ export default {
         crud.update(`admin/categories/${this.routeKey}`, {
           name: this.form.name,
           description: this.form.description,
+          primary: this.form.primary,
           parent_id: this.form.parent_id,
           image: this.form.image_id
         })

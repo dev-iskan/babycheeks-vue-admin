@@ -24,7 +24,7 @@ Vue.mixin(validationMixin)
 Vue.mixin(pageMixin)
 
 // Set the base URL of the API
-ApiService.init(process.env.VUE_APP_PROD_ROOT_API)
+ApiService.init(process.env.VUE_APP_DEV_ROOT_API)
 ApiService.mountInterceptor()
 // If token exists set header
 if (TokenService.getToken()) {

@@ -19,14 +19,14 @@
             </div>
             <div class="subheading d-flex table">
               <div class="d-flex width-50 text-uppercase">
-                name
+                имя
               </div> <div class="d-flex">
                 {{ category.name }}
               </div>
             </div>
             <div class="subheading d-flex table">
               <div class="d-flex width-50 text-uppercase">
-                description
+                описание
               </div>
 
               <div
@@ -36,14 +36,32 @@
             </div>
             <div class="subheading d-flex table">
               <div class="d-flex width-50 text-uppercase">
-                parent
+                родительская категория
               </div> <div class="d-flex width-50">
                 {{ category.parent }}
               </div>
             </div>
             <div class="subheading d-flex table">
               <div class="d-flex width-50 text-uppercase">
-                created at
+                главная
+              </div> <div class="d-flex width-50">
+                <v-icon
+                  v-if="category.primary"
+                  color="green"
+                >
+                  done
+                </v-icon>
+                <v-icon
+                  v-else
+                  color="red"
+                >
+                  clear
+                </v-icon>
+              </div>
+            </div>
+            <div class="subheading d-flex table">
+              <div class="d-flex width-50 text-uppercase">
+                создано
               </div> <div class="d-flex width-50">
                 {{ category.created_at }}
               </div>

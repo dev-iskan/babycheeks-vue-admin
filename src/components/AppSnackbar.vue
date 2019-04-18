@@ -1,7 +1,7 @@
 <template>
   <v-snackbar
     bottom
-    right
+    left
     :value="message"
     color="deep-purple lighten-3"
     @input="closeSnack"

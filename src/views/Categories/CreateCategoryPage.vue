@@ -26,7 +26,10 @@
             :init="tinymce"
             class="my-2"
           />
-
+          <v-switch
+            v-model="form.primary"
+            label="Сделать категорию главной"
+          />
           <v-autocomplete
             v-model="form.parent_id"
             :items="categories"
@@ -80,6 +83,7 @@ export default {
         slug: '',
         name: '',
         description: '',
+        primary: false,
         parent_id: 0,
         image_id: null
       },
@@ -134,6 +138,7 @@ export default {
         crud.store('admin/categories', {
           name: this.form.name,
           description: this.form.description,
+          primary: this.form.primary,
           parent_id: this.form.parent_id,
           image: this.form.image_id
         }, this.form.slug)

@@ -43,10 +43,10 @@
         :items="records"
         :search="search"
         :loading="loading"
+        no-results-text="Нету записей"
         hide-actions
-        class="elevation-1"
+        class="elevation-2"
       >
-        <!-- no-results-text="Такие данные не найдены" -->
         <template v-slot:items="props">
           <tr
             class="pointer"
@@ -111,7 +111,7 @@ export default {
   },
   filters: {
     nullValue (value) {
-      return value || 'No value'
+      return value || 'Нету значения'
     }
   },
   props: {
