@@ -45,12 +45,22 @@
             id="dropzone"
             ref="dropzone"
             class="my-2"
+            :use-custom-slot="true"
             :options="dropzone"
             @vdropzone-sending="sending"
             @vdropzone-removed-file="removing"
             @vdropzone-success="success"
             @vdropzone-mounted="mounted"
-          />
+          >
+            <div
+              v-if="errors.images"
+              class="dropzone-custom-content"
+            >
+              <h3 class="dropzone-custom-title">
+                {{ errors.images[0] }}
+              </h3>
+            </div>
+          </vue-dropzone>
         </v-card-text>
 
         <v-card-actions class="pa-3">
@@ -138,6 +148,7 @@ export default {
               dataURL: item.dataURL
             }
             this.$refs.dropzone.manuallyAddFile(file, file.dataURL)
+            this.form.image_id = item.id
           })
         })
     },
@@ -200,4 +211,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

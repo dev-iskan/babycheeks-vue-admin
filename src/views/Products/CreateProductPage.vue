@@ -108,12 +108,22 @@
           <vue-dropzone
             id="dropzone"
             ref="dropzone"
+            :use-custom-slot="true"
             class="my-2"
             :options="dropzone"
             @vdropzone-sending="sending"
             @vdropzone-removed-file="removing"
             @vdropzone-success="success"
-          />
+          >
+            <div
+              v-if="errors.images"
+              class="dropzone-custom-content"
+            >
+              <h3 class="dropzone-custom-title">
+                {{ errors.images[0] }}
+              </h3>
+            </div>
+          </vue-dropzone>
         </v-card-text>
 
         <v-card-actions class="pa-3">
