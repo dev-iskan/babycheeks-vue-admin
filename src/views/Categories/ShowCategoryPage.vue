@@ -30,7 +30,7 @@
               </div>
 
               <div
-                class="d-flex width-50 body-2"
+                class="width-50 body-2"
                 v-html="category.description"
               />
             </div>
